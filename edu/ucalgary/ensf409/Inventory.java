@@ -33,7 +33,7 @@ public class Inventory {
             results = myStmt.executeQuery("SELECT * FROM chair WHERE Type = '" + type + "'");
 
             while (results.next()) {
-                Chair ch = new Chair(results.getString("ID"), results.getString("Type"), results.getString("Legs"), results.getString("Arms"), results.getString("Seat"), results.getString("Cushion"), results.getInt("Price"), results.getInt("ManuID"));
+                Chair ch = new Chair(results.getString("ID"), results.getString("Type"), results.getString("Legs"), results.getString("Arms"), results.getString("Seat"), results.getString("Cushion"), results.getInt("Price"), results.getString("ManuID"));
                 chairs.add(ch);
             }
             myStmt.close();
@@ -52,7 +52,7 @@ public class Inventory {
             results = myStmt.executeQuery("SELECT * FROM desk WHERE Type = '" + type + "'");
 
             while (results.next()) {
-                Desk de = new Desk(results.getString("ID"), results.getString("Type"), results.getString("Legs"), results.getString("Top"), results.getString("Drawer"), results.getInt("Price"), results.getInt("ManuID"));
+                Desk de = new Desk(results.getString("ID"), results.getString("Type"), results.getString("Legs"), results.getString("Top"), results.getString("Drawer"), results.getInt("Price"), results.getString("ManuID"));
                 desks.add(de);
             }
             myStmt.close();
@@ -71,7 +71,7 @@ public class Inventory {
             results = myStmt.executeQuery("SELECT * FROM filing WHERE Type = '" + type + "'");
 
             while (results.next()) {
-                Filing fi = new Filing(results.getString("ID"), results.getString("Type"), results.getString("Rails"), results.getString("Drawers"), results.getString("Cabinet"), results.getInt("Price"), results.getInt("ManuID"));
+                Filing fi = new Filing(results.getString("ID"), results.getString("Type"), results.getString("Rails"), results.getString("Drawers"), results.getString("Cabinet"), results.getInt("Price"), results.getString("ManuID"));
                 filings.add(fi);
             }
             myStmt.close();
@@ -90,7 +90,7 @@ public class Inventory {
             results = myStmt.executeQuery("SELECT * FROM lamp WHERE Type = '" + type + "'");
 
             while (results.next()) {
-                Lamp la = new Lamp(results.getString("ID"), results.getString("Type"), results.getString("Base"), results.getString("Bulb"), results.getInt("Price"), results.getInt("ManuID"));
+                Lamp la = new Lamp(results.getString("ID"), results.getString("Type"), results.getString("Base"), results.getString("Bulb"), results.getInt("Price"), results.getString("ManuID"));
                 lamps.add(la);
             }
             myStmt.close();
@@ -98,6 +98,48 @@ public class Inventory {
             e.printStackTrace();
         }
         return lamps;
+    }
+
+    //Inserts chair into database. Used for testing delete method.
+    public void insertChair(String id, String type, String legs, String arms, String seat, String cushion, int price, String manuId) {
+        try {
+            String query = "INSERT INTO chair (ID, Type, Legs, Arms, Seat, Cushion, Price, ManuID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setString(1, id);
+            myStmt.setString(2, type);
+            myStmt.setString(3, legs);
+            myStmt.setString(4, arms);
+            myStmt.setString(5, seat);
+            myStmt.setString(6, cushion);
+            myStmt.setInt(7, price);
+            myStmt.setString(8, manuId);
+
+            int rowCount = myStmt.executeUpdate();
+            System.out.println("Rows affected: " + rowCount);
+
+            myStmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Deletes furniture with a specified type from inventory, if it exists. Can be used to update
+    //database after an order form has been submitted.
+    public void deleteFurniture(String inventoryType, String ID) {
+        try {
+            String query = "DELETE FROM " + inventoryType + " WHERE ID = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setString(1, ID);
+
+            int rowCount = myStmt.executeUpdate();
+            System.out.println("Rows affected: " + rowCount);
+
+            myStmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //closes and releases all connections to the database
@@ -131,8 +173,10 @@ public class Inventory {
         System.out.println();
         ArrayList<Lamp> deskLamps = myJDBC.selectLampsByType("Desk");
         for (Lamp lamp : deskLamps) {
-            System.out.println(lamp.id + "     " + lamp.hasBulb + "     " + lamp.price);
+            System.out.println(lamp.id + "     " + lamp.hasBulb + "     " + lamp.manuID);
         }
+        myJDBC.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 69, "002");
+        myJDBC.deleteFurniture("chair", "C0000");
         myJDBC.close();
     }
 }

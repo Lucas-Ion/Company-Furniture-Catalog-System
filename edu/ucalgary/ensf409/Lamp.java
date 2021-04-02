@@ -8,9 +8,9 @@ public class Lamp {
     boolean hasBase = false;
     boolean hasBulb = false;
     int price;
-    int manuID;
+    String manuID;
 
-    public Lamp(String ID, String Type, String Base, String Bulb, int Price, int ManuID) {
+    public Lamp(String ID, String Type, String Base, String Bulb, int Price, String ManuID) {
         id = new String(ID);
         type = new String(Type);
         if (Base.equals("Y")) {
@@ -20,6 +20,6 @@ public class Lamp {
             hasBulb = true;
         }
         price = Price;
-        manuID = ManuID;
+        manuID = new String(ManuID);
     }
 }

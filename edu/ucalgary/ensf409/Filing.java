@@ -9,9 +9,9 @@ public class Filing {
     boolean hasDrawers = false;
     boolean hasCabinet = false;
     int price;
-    int manuID;
+    String manuID;
 
-    public Filing(String ID, String Type, String Rails, String Drawers, String Cabinet, int Price, int ManuID) {
+    public Filing(String ID, String Type, String Rails, String Drawers, String Cabinet, int Price, String ManuID) {
         id = new String(ID);
         type = new String(Type);
         if (Rails.equals("Y")) {
@@ -24,6 +24,6 @@ public class Filing {
             hasCabinet = true;
         }
         price = Price;
-        manuID = ManuID;
+        manuID = new String(ManuID);
     }
 }

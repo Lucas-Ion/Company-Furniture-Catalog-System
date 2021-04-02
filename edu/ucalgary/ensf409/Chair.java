@@ -10,9 +10,9 @@ public class Chair {
     boolean hasSeat = false;
     boolean hasCushion = false;
     int price;
-    int manuID;
+    String manuID;
 
-    public Chair(String ID, String Type, String Legs, String Arms, String Seat, String Cushion, int Price, int ManuID) {
+    public Chair(String ID, String Type, String Legs, String Arms, String Seat, String Cushion, int Price, String ManuID) {
         id = new String(ID);
         type = new String(Type);
         if (Legs.equals("Y")) {
@@ -28,7 +28,7 @@ public class Chair {
             hasCushion = true;
         }
         price = Price;
-        manuID = ManuID;
+        manuID = new String(ManuID);
     }
 
     

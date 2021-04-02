@@ -9,9 +9,9 @@ public class Desk {
     boolean hasTop = false;
     boolean hasDrawer = false;
     int price;
-    int manuID;
+    String manuID;
 
-    public Desk(String ID, String Type, String Legs, String Top, String Drawer, int Price, int ManuID) {
+    public Desk(String ID, String Type, String Legs, String Top, String Drawer, int Price, String ManuID) {
         id = new String(ID);
         type = new String(Type);
         if (Legs.equals("Y")) {
@@ -24,6 +24,6 @@ public class Desk {
             hasDrawer = true;
         }
         price = Price;
-        manuID = ManuID;
+        manuID = new String(ManuID);
     }
 }
