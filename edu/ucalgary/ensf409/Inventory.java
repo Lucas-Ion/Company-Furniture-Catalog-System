@@ -1,6 +1,6 @@
 /**
  * @author: Athul Rajagopal, Lucas Ion, Amrit Mahendrarajah, Colton Giesbrecht
- * @version: 1.2
+ * @version: 1.3
  * @since: 1.0
  */
 
@@ -148,6 +148,55 @@ public class Inventory {
         }
     }
 
+    //Finds and returns a String ArrayList of manufacturer IDs for a given type of furniture. This
+    //method is called by findManufacturers to get each ManuID.
+    public ArrayList<String> findManuIDs(String inventoryType) {
+        ArrayList<String> allManuIds = new ArrayList<String>();
+
+        try {
+            Statement myStmt = dbConnect.createStatement();
+            results = myStmt.executeQuery("SELECT ManuID FROM " + inventoryType);
+            
+            results.next();
+            String tmp = results.getString("ManuID");
+            allManuIds.add(tmp);
+            //the 3 lines above are needed to store the ManuID from the first line of results
+            while (results.next()) {
+                 if (!results.getString("ManuID").equals(tmp)) {
+                     tmp = results.getString("ManuID");
+                     allManuIds.add(tmp);
+                 }
+            }
+            myStmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allManuIds;
+    }
+
+    //Finds and returns a String ArrayList of all manufacturer names for a given type of furniture. This
+    //method would be called when an order request cannot be fulfilled.
+    public ArrayList<String> findManufacturers(String inventoryType) {
+        ArrayList<String> allManufacturers = new ArrayList<String>();
+        ArrayList<String> myManuIds = findManuIDs(inventoryType);
+
+        for (String manuId : myManuIds) {
+            try {
+                Statement myStmt = dbConnect.createStatement();
+                results = myStmt.executeQuery("SELECT Name FROM manufacturer WHERE ManuID = '" + manuId + "'");
+
+                while (results.next()) {
+                    allManufacturers.add(results.getString("Name"));
+                }
+                myStmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return allManufacturers;
+    }
+
     //closes and releases all connections to the database
     public void close() {
         try {
@@ -183,6 +232,10 @@ public class Inventory {
         }
         myJDBC.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 69, "002");
         myJDBC.deleteFurniture("chair", "C0000");
+        ArrayList<String> chairMans = myJDBC.findManufacturers("chair");
+        for (String manuId : chairMans) {
+            System.out.println(manuId);
+        }
         myJDBC.close();
     }
 }
