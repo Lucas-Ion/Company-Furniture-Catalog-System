@@ -1,3 +1,9 @@
+/**
+ * @author: Athul Rajagopal, Lucas Ion, Amrit Mahendrarajah, Colton Giesbrecht
+ * @version: 1.2
+ * @since: 1.0
+ */
+
 package edu.ucalgary.ensf409;
 import java.sql.*;
 import java.util.*;
@@ -126,12 +132,12 @@ public class Inventory {
 
     //Deletes furniture with a specified type from inventory, if it exists. Can be used to update
     //database after an order form has been submitted.
-    public void deleteFurniture(String inventoryType, String ID) {
+    public void deleteFurniture(String inventoryType, String id) {
         try {
             String query = "DELETE FROM " + inventoryType + " WHERE ID = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
-            myStmt.setString(1, ID);
+            myStmt.setString(1, id);
 
             int rowCount = myStmt.executeUpdate();
             System.out.println("Rows affected: " + rowCount);
@@ -173,7 +179,7 @@ public class Inventory {
         System.out.println();
         ArrayList<Lamp> deskLamps = myJDBC.selectLampsByType("Desk");
         for (Lamp lamp : deskLamps) {
-            System.out.println(lamp.id + "     " + lamp.hasBulb + "     " + lamp.manuID);
+            System.out.println(lamp.id + "     " + lamp.hasBulb + "     " + lamp.manuId);
         }
         myJDBC.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 69, "002");
         myJDBC.deleteFurniture("chair", "C0000");

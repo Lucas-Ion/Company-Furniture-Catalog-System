@@ -9,21 +9,21 @@ public class Filing {
     boolean hasDrawers = false;
     boolean hasCabinet = false;
     int price;
-    String manuID;
+    String manuId;
 
-    public Filing(String ID, String Type, String Rails, String Drawers, String Cabinet, int Price, String ManuID) {
-        id = new String(ID);
-        type = new String(Type);
-        if (Rails.equals("Y")) {
+    public Filing(String id, String type, String rails, String drawers, String cabinet, int price, String manuId) {
+        this.id = new String(id);
+        this.type = new String(type);
+        if (rails.equals("Y")) {
             hasRails = true;
         }
-        if (Drawers.equals("Y")) {
+        if (drawers.equals("Y")) {
             hasDrawers = true;
         }
-        if (Cabinet.equals("Y")) {
+        if (cabinet.equals("Y")) {
             hasCabinet = true;
         }
-        price = Price;
-        manuID = new String(ManuID);
+        this.price = price;
+        this.manuId = new String(manuId);
     }
 }

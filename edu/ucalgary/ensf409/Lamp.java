@@ -8,18 +8,18 @@ public class Lamp {
     boolean hasBase = false;
     boolean hasBulb = false;
     int price;
-    String manuID;
+    String manuId;
 
-    public Lamp(String ID, String Type, String Base, String Bulb, int Price, String ManuID) {
-        id = new String(ID);
-        type = new String(Type);
-        if (Base.equals("Y")) {
+    public Lamp(String id, String type, String base, String bulb, int price, String manuId) {
+        this.id = new String(id);
+        this.type = new String(type);
+        if (base.equals("Y")) {
             hasBase = true;
         }
-        if (Bulb.equals("Y")) {
+        if (bulb.equals("Y")) {
             hasBulb = true;
         }
-        price = Price;
-        manuID = new String(ManuID);
+        this.price = price;
+        this.manuId = new String(manuId);
     }
 }

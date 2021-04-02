@@ -9,21 +9,21 @@ public class Desk {
     boolean hasTop = false;
     boolean hasDrawer = false;
     int price;
-    String manuID;
+    String manuId;
 
-    public Desk(String ID, String Type, String Legs, String Top, String Drawer, int Price, String ManuID) {
-        id = new String(ID);
-        type = new String(Type);
-        if (Legs.equals("Y")) {
+    public Desk(String id, String type, String legs, String top, String drawer, int price, String manuId) {
+        this.id = new String(id);
+        this.type = new String(type);
+        if (legs.equals("Y")) {
             hasLegs = true;
         }
-        if (Top.equals("Y")) {
+        if (top.equals("Y")) {
             hasTop = true;
         }
-        if (Drawer.equals("Y")) {
+        if (drawer.equals("Y")) {
             hasDrawer = true;
         }
-        price = Price;
-        manuID = new String(ManuID);
+        this.price = price;
+        this.manuId = new String(manuId);
     }
 }

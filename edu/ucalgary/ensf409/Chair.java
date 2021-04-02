@@ -10,25 +10,25 @@ public class Chair {
     boolean hasSeat = false;
     boolean hasCushion = false;
     int price;
-    String manuID;
+    String manuId;
 
-    public Chair(String ID, String Type, String Legs, String Arms, String Seat, String Cushion, int Price, String ManuID) {
-        id = new String(ID);
-        type = new String(Type);
-        if (Legs.equals("Y")) {
+    public Chair(String id, String type, String legs, String arms, String seat, String cushion, int price, String manuId) {
+        this.id = new String(id);
+        this.type = new String(type);
+        if (legs.equals("Y")) {
             hasLegs = true;
         }
-        if (Arms.equals("Y")) {
+        if (arms.equals("Y")) {
             hasArms = true;
         }
-        if (Seat.equals("Y")) {
+        if (seat.equals("Y")) {
             hasSeat = true;
         }
-        if (Cushion.equals("Y")) {
+        if (cushion.equals("Y")) {
             hasCushion = true;
         }
-        price = Price;
-        manuID = new String(ManuID);
+        this.price = price;
+        manuId = new String(manuId);
     }
 
     
