@@ -16,7 +16,7 @@ public class Order {
 	private int[] numOfComponents;
 	private int totalCost;
 	private int numOfFurniture;
-	ArrayList<Furniture> furnitureBought;
+	private ArrayList<Furniture> furnitureBought;
 
 	public Order(int numOfComponentTypes, int numOfFurniture) {
 		numOfComponents = new int[numOfComponentTypes];
@@ -25,19 +25,45 @@ public class Order {
 		this.numOfFurniture = numOfFurniture;
 	}
 
-	public boolean addParts(Furniture furniture) {
+	public void addParts(Furniture furniture) {
 
-		boolean isComplete = true;
-		for (int i = 0; i < furniture.hasComponents.length; i++) {
-			if (furniture.hasComponents[i] == true) {
-				numOfComponents[i]++;
-			}
-			if (numOfComponents[i] != numOfFurniture) {
-				isComplete = false;
-			}
-		}
 		totalCost += furniture.price;
 		furnitureBought.add(furniture);
-		return isComplete;
+		for (int i = 0; i < numOfComponents.length; i++) {
+			if (furniture.hasComponents[i]) {
+				numOfComponents[i]++;
+			}
+		}
 	}
+
+	public boolean isOrderFulfilled() {
+
+		for (int numOfComponent : numOfComponents) {
+			if (numOfComponent < numOfFurniture) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public int[] getNumOfComponents() {
+		return numOfComponents;
+	}
+
+	public int getTotalCost() {
+		return totalCost;
+	}
+
+	public int getNumOfFurniture() {
+		return numOfFurniture;
+	}
+
+	public Furniture[] getFurnitureBought() {
+		return furnitureBought.toArray(Furniture[]::new);
+	}
+
+	public int getNumFurnitureBought() {
+		return furnitureBought.size();
+	}
+
 }
