@@ -27,14 +27,13 @@ public class Main {
 			Order order = null;
 			if (request.attemptOrder(furnitureInventory)) {
 				order = request.getCheapestOrder();
+				System.out.println(order.getTotalCost());
+				for (Furniture furn : order.getFurnitureBought()) {
+					System.out.println(furn.id);
+				}
 			}
-
-			System.out.println(order.getTotalCost());
-			for (Furniture furn : order.getFurnitureBought()) {
-				System.out.println(furn.id);
-			}
+			request.sendOrderToDatabase(furnitureInventory);
 		}
-
 		furnitureInventory.close();
 	}
 }

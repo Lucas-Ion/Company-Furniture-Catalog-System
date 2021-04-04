@@ -17,6 +17,8 @@ public class Order {
 	private int totalCost;
 	private int numOfFurniture;
 	private ArrayList<Furniture> furnitureBought;
+	private FurnitureCategory category;
+	private String type;
 
 	public Order(int numOfComponentTypes, int numOfFurniture) {
 		numOfComponents = new int[numOfComponentTypes];
@@ -64,6 +66,22 @@ public class Order {
 
 	public int getNumFurnitureBought() {
 		return furnitureBought.size();
+	}
+
+	public FurnitureCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(FurnitureCategory category) {
+		this.category = category;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

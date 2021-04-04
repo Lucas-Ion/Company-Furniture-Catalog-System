@@ -133,6 +133,8 @@ public class FurnitureOrder {
 
 		if (cheapest != null) {
 			cheapestOrder = cheapest;
+			cheapestOrder.setCategory(category);
+			cheapestOrder.setType(type);
 			return true;
 		} else {
 			return false;
