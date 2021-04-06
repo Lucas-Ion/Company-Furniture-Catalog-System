@@ -1,5 +1,5 @@
 /**
- * @author: Athul Rajagopal, Lucas Ion, Amrit Mahendrarajah, Colton Giesbrecht
+ * @author: Athul Rajagopal <a href="mailto:athul.rajagopal@ucalgary.ca">athul.rajagopal@ucalgary.ca</a>
  * @version: 1.3
  * @since: 1.0
  */
