@@ -161,6 +161,70 @@ public class InventoryTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	//Testing Furniture Order for 2 desk lamps. The total price should be no more than 40 dollars.
+	public void test_FurnitureOrder_find_lowest_price_2DeskLamps()
+	{
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		furnitureInventory.initializeConnection();
+		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Lamp"),"Desk",2);
+		Order order = null;
+		request.attemptOrder(furnitureInventory);
+		order = request.getCheapestOrder();
+		int expectedPrice = 40;
+		furnitureInventory.close();
+		assertEquals(" test_FurnitureOrder_find_lowest_price_2DeskLamps did not return the expected price",expectedPrice,order.getTotalCost());
+		
+	}
+	/*@Test
+	//test to ensure when an order can be filled, all the appropriate items are removed from the database
+	public void test_sendOrderToDatabase()
+	{
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		furnitureInventory.initializeConnection();
+		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Desk"),"Standing",1);
+		Order order = null;
+		request.attemptOrder(furnitureInventory);
+		order = request.getCheapestOrder();
+		
+		
+	}
+	*/
+	@Test
+	//Test to make sure attemptOrder returns false when it gets an order it cannot fill
+	public void test_FurnitureOrder_cannot_fullfill_order()
+	{
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		furnitureInventory.initializeConnection();
+		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Filing"),"Small",5);
+		Order order = null;
+		boolean realvalue = request.attemptOrder(furnitureInventory);
+		boolean expectedvalue = false;
+		furnitureInventory.close();
+		assertEquals("test_FurnitureOrder_cannot_fullfill_order did not return the expected value",expectedvalue,realvalue);
+	}
+	@Test
+	//test to ensure when an order can be filled, all the appropriate items are removed from the database
+	public void test_sendOrderToDatabase()
+	{
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		furnitureInventory.initializeConnection();
+		ArrayList<Desk> expectedvalue =  furnitureInventory.selectDesksByType("Standing");
+		expectedvalue.remove(0);
+		expectedvalue.remove(1);
+		
+		
+		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Desk"),"Standing",1);
+		Order order = null;
+		request.attemptOrder(furnitureInventory);
+		order = request.getCheapestOrder();
+		request.sendOrderToDatabase(furnitureInventory);
+		ArrayList<Desk> realvalue = furnitureInventory.selectDesksByType("Standing");
+		furnitureInventory.close();
+		assertEquals("sendOrderToDatabase did not remove the items from the database",true,Arrays.equals(expectedvalue.toArray(Furniture[]::new),realvalue.toArray(Furniture[]::new),( a, b)->a.id == b.id ?1:0));
+	}
+	
+	
 	
 	
 	
