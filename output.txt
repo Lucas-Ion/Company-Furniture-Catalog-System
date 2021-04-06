@@ -1,13 +1,14 @@
 Furniture Order Form
 
-Faculty Name: Civil
-Contact: Amirt Tav
-Date 07/11/2021
+Faculty Name: Women Studies
+Contact: Lucas Ion
+Date 04/05/2021
 
-Original Request: Mesh Chair, 1
+Original Request: Small Filing, 2
 
 Items ordered
-ID: C0942
-ID: C9890
+ID: F001
+ID: F004
+ID: F005
 
-Total Price: $150
+Total Price: $200

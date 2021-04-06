@@ -34,7 +34,7 @@ public class Main {
 
         pw = new PrintWriter(fw);
 
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 		furnitureInventory.initializeConnection();
 System.out.println();
 System.out.println();
