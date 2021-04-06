@@ -122,7 +122,7 @@ public class Inventory {
             myStmt.setString(8, manuId);
 
             int rowCount = myStmt.executeUpdate();
-            System.out.println("Rows affected: " + rowCount);
+            //System.out.println("Rows affected: " + rowCount);
 
             myStmt.close();
         } catch (SQLException e) {
@@ -140,7 +140,7 @@ public class Inventory {
             myStmt.setString(1, id);
 
             int rowCount = myStmt.executeUpdate();
-            System.out.println("Rows affected: " + rowCount);
+            //System.out.println("Rows affected: " + rowCount);
 
             myStmt.close();
         } catch (SQLException e) {
@@ -198,7 +198,9 @@ public class Inventory {
     }
 
     //closes and releases all connections to the database
+    
     public void close() {
+        if(results!= null){
         try {
             results.close();
             dbConnect.close();
@@ -206,10 +208,11 @@ public class Inventory {
             e.printStackTrace();
         }
     }
+    }
 
     public static void main(String[] args) {
 
-        Inventory myJDBC = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409"); //note that username and password are for my computer's SQL
+        Inventory myJDBC = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409"); //note that username and password are for my computer's SQL
         myJDBC.initializeConnection();
         ArrayList<Chair> meshChairs = myJDBC.selectChairsByType("Mesh");
         for (Chair chair : meshChairs) {

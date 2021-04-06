@@ -34,6 +34,9 @@ public class FurnitureOrder {
 	public boolean attemptOrder(Inventory inventory) {
 
 		Furniture[] listOfCategory = getFurnitureArray(inventory);
+		if(listOfCategory.length == 0){
+			return false;
+		}
 		ArrayList<Order> possibleOrders = new ArrayList<Order>();
 		calcPossibleOrders(listOfCategory, new ArrayList<Furniture>(), possibleOrders);
 		return findCheapestOrder(possibleOrders);
@@ -102,6 +105,7 @@ public class FurnitureOrder {
 
 	private void calcPossibleOrders(Furniture[] furniture, ArrayList<Furniture> furnitureToBeAdded,
 			ArrayList<Order> possibleOrders) {
+							
 
 		int numOfComponents = furniture[0].hasComponents.length;
 		for (int i = 0; i < furniture.length; i++) {

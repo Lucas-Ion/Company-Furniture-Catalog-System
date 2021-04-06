@@ -24,7 +24,7 @@ public class InventoryTest {
 		ResultSet results = null;
 		ArrayList<Chair> expectedchairs = new ArrayList<Chair>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM chair WHERE Type = '" + "Mesh" + "'");
             	while (results.next()) {
