@@ -2,8 +2,6 @@ package edu.ucalgary.ensf409;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.sql.*;
@@ -162,6 +160,102 @@ public class InventoryTest {
 		}
 	}
 	@Test
+	public void test_findManuIDs()
+	{
+		Connection dbConnect = null;
+		ResultSet results = null;
+		ArrayList<String> expectedvalue = new ArrayList<String>();
+		try {
+				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+				Statement myStmt = dbConnect.createStatement();
+	            results = myStmt.executeQuery("SELECT ManuID FROM " + "Chair" );
+	            
+	            results.next();
+	            String tmp = results.getString("ManuID");
+	            expectedvalue.add(tmp);
+	            //the 3 lines above are needed to store the ManuID from the first line of results
+	            while (results.next()) {
+	                 if (!results.getString("ManuID").equals(tmp)) {
+	                     tmp = results.getString("ManuID");
+	                     expectedvalue.add(tmp);
+	                 }
+	            }
+	            myStmt.close();
+	            results.close();
+	            dbConnect.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		invent.initializeConnection();
+		ArrayList<String> realvalue = invent.findManuIDs("Chair");
+		assertEquals("findManuID did not return the expected ArrayList<String> which contains the manuID's",true,Arrays.equals(expectedvalue.toArray(String[]::new),realvalue.toArray(String[]::new),( a, b)->a == b ?1:0));
+	}
+	@Test
+	public void test_findManufacturers()
+	{
+		Connection dbConnect = null;
+		ResultSet results = null;
+		
+		ArrayList<String> ManuID = new ArrayList<String>();
+		ArrayList<String> expectedManufacturerList = new ArrayList<String>();
+		try {
+				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+				Statement myStmt = dbConnect.createStatement();
+	            results = myStmt.executeQuery("SELECT ManuID FROM " + "Desk" );
+	            
+	            results.next();
+	            String tmp = results.getString("ManuID");
+	            ManuID.add(tmp);
+	            //the 3 lines above are needed to store the ManuID from the first line of results
+	            while (results.next()) {
+	                 if (!results.getString("ManuID").equals(tmp)) {
+	                     tmp = results.getString("ManuID");
+	                     ManuID.add(tmp);
+	                 }
+	            }
+	            myStmt.close();
+	            results.close();
+	            dbConnect.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		for(String manuID: ManuID)
+		{
+		try {
+			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+			Statement myStmt = dbConnect.createStatement();
+            results = myStmt.executeQuery("SELECT Name FROM manufacturer WHERE ManuID =  '" + manuID +"'" );
+            
+            
+            while (results.next()) {
+                 expectedManufacturerList.add(results.getString("Name"));
+            }
+            myStmt.close();
+            results.close();
+            dbConnect.close();
+		
+	}catch(SQLException e)
+	{
+		e.printStackTrace();
+	}
+		
+	}
+		//dbConnect.close();
+		//inventory code here
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		invent.initializeConnection();
+		ArrayList<String> realManufacturerList = invent.findManufacturers("Desk");
+		assertEquals("findManufacturers did not return the expected ArrayList<String> which contains the manufacturer Names",true,Arrays.equals(expectedManufacturerList.toArray(String[]::new),realManufacturerList.toArray(String[]::new),( a, b)->a == b ?1:0));
+		
+		 
+	}
+	
+	@Test
 	//Testing Furniture Order for 2 desk lamps. The total price should be no more than 40 dollars.
 	public void test_FurnitureOrder_find_lowest_price_2DeskLamps()
 	{
@@ -176,20 +270,8 @@ public class InventoryTest {
 		assertEquals(" test_FurnitureOrder_find_lowest_price_2DeskLamps did not return the expected price",expectedPrice,order.getTotalCost());
 		
 	}
-	/*@Test
-	//test to ensure when an order can be filled, all the appropriate items are removed from the database
-	public void test_sendOrderToDatabase()
-	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
-		furnitureInventory.initializeConnection();
-		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Desk"),"Standing",1);
-		Order order = null;
-		request.attemptOrder(furnitureInventory);
-		order = request.getCheapestOrder();
-		
-		
-	}
-	*/
+	
+	
 	@Test
 	//Test to make sure attemptOrder returns false when it gets an order it cannot fill
 	public void test_FurnitureOrder_cannot_fullfill_order()
@@ -223,6 +305,8 @@ public class InventoryTest {
 		furnitureInventory.close();
 		assertEquals("sendOrderToDatabase did not remove the items from the database",true,Arrays.equals(expectedvalue.toArray(Furniture[]::new),realvalue.toArray(Furniture[]::new),( a, b)->a.id == b.id ?1:0));
 	}
+	
+	
 	
 	
 	
