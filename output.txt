@@ -1,13 +1,12 @@
 Furniture Order Form
 
-Faculty Name: Civil
-Contact: Amirt Tav
-Date 07/11/2021
-
-Original Request: Mesh Chair, 1
+Faculty name: Electrical
+Contract: Colton Tester
+Date 10/12/12
+Original Request: Large Filing, 1
 
 Items ordered
-ID: C0942
-ID: C9890
+ID: F011
+ID: F015
 
-Total Price: $150
+Total Price: $300
