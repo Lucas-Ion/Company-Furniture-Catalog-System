@@ -20,6 +20,8 @@ public class Main {
 
 		StringBuilder output = new StringBuilder();
 
+		FileIO fileIO = new FileIO();
+
 		Scanner scan = new Scanner(System.in);
 
 		outFile = new File("output.txt");
@@ -32,7 +34,6 @@ public class Main {
 
         pw = new PrintWriter(fw);
 
-		FileIO fileIO = new FileIO();
 
 		pw.print(fileIO.formatOutput());
 		pw.close();

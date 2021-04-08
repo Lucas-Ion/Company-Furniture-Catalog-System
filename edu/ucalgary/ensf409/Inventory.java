@@ -1,5 +1,5 @@
 /**
- * @author: Athul Rajagopal, Lucas Ion, Amrit Mahendrarajah, Colton Giesbrecht
+ * @author: Athul Rajagopal <a href="mailto:athul.rajagopal@ucalgary.ca">athul.rajagopal@ucalgary.ca</a>
  * @version: 1.3
  * @since: 1.0
  */
@@ -210,7 +210,7 @@ public class Inventory {
     }
     }
 
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
 
         Inventory myJDBC = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409"); //note that username and password are for my computer's SQL
         myJDBC.initializeConnection();
@@ -233,12 +233,12 @@ public class Inventory {
         for (Lamp lamp : deskLamps) {
             System.out.println(lamp.id + "     " + lamp.hasBulb + "     " + lamp.manuId);
         }
-        myJDBC.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 69, "002");
+        myJDBC.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 70, "002");
         myJDBC.deleteFurniture("chair", "C0000");
         ArrayList<String> chairMans = myJDBC.findManufacturers("chair");
         for (String manuId : chairMans) {
             System.out.println(manuId);
         }
         myJDBC.close();
-    }
+    } */
 }

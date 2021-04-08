@@ -10,8 +10,8 @@
 package edu.ucalgary.ensf409;
 
 /**
-*
-*/
+ * Holds info on inventory furniture entries.
+ */
 public class Furniture {
 
 	protected Boolean[] hasComponents;
@@ -21,11 +21,12 @@ public class Furniture {
 	protected String type;
 
 	/**
-	 * @param hasComponents
-	 * @param price
-	 * @param manuId
-	 * @param id
-	 * @param type
+	 * @param hasComponents array of booleans true if their corresponding part of
+	 *                      the furniture exists
+	 * @param price         price of furniture
+	 * @param manuId        id from manufacture
+	 * @param id            assigned by database
+	 * @param type          subcategory of furniture
 	 */
 	public Furniture(Boolean[] hasComponents, int price, String manuId, String id, String type) {
 		this.hasComponents = hasComponents;

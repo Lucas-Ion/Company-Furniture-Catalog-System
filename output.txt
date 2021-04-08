@@ -1,5 +1,6 @@
 Furniture Order Form
 
+<<<<<<< HEAD
 Faculty name: Electrical
 Contract: Colton Tester
 Date 10/12/12
@@ -10,3 +11,17 @@ ID: F011
 ID: F015
 
 Total Price: $300
+=======
+Faculty Name: Women Studies
+Contact: Lucas Ion
+Date 04/05/2021
+
+Original Request: Small Filing, 2
+
+Items ordered
+ID: F001
+ID: F004
+ID: F005
+
+Total Price: $200
+>>>>>>> 703fe204570b7092259b02ff88ac389190dc9c26
