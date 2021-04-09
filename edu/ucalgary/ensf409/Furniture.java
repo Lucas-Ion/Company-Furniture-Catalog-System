@@ -1,13 +1,10 @@
+package edu.ucalgary.ensf409;
+
 /**
- * @author Colton Giesbrecht <a href="mailto:colton.giesbrecht1@ucalgary.ca">colton.giesbrecht@ucalgary.ca</a>
+ * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
  * @version 1.0
  * @since 1.0
  */
-
-/*
-* Furniture.java does
-*/
-package edu.ucalgary.ensf409;
 
 /**
  * Holds info on inventory furniture entries.
