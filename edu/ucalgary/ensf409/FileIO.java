@@ -98,10 +98,10 @@ public class FileIO {
                 output.append("Faculty name: " + facultyName);
                 output.append("\n");
 				//pw.println("Contact: " + contact);
-                output.append("Contract: " + contact);
+                output.append("Contact: " + contact);
                 output.append("\n");
 				//pw.println("Date " + date);
-                output.append("Date " + date);
+                output.append("Date: " + date);
                 output.append("\n");
 				//pw.println();
 				//pw.println("Original Request: " + type + " " + cat + ", " + quantity);

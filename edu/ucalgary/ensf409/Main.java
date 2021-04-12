@@ -284,7 +284,7 @@ try {
 				System.out.println("|                                                      |");
 				System.out.println("|              Please select a type:                   |");
 				System.out.println("|              Small: 1, Medium: 2,                    |");
-				System.out.println("|                   Large: 2                           |");
+				System.out.println("|                   Large: 3                           |");
 				System.out.println("|                                                      |");
 				System.out.println("--------------------------------------------------------");
 				System.out.println();
@@ -372,8 +372,10 @@ try {
 		fileIO.setDate(date);
 		fileIO.setFacultyName(facultyName);
 	
-
-		pw.print(fileIO.formatOutput());
+		String out = fileIO.formatOutput();
+		System.out.println(out);
+		pw.print(out);
+		
 		pw.close();
 
 	}
