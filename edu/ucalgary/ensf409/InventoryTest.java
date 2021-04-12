@@ -8,6 +8,12 @@ import java.sql.*;
 
 import org.junit.Test;
 
+/**
+ * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class InventoryTest {
 	public InventoryTest()
 	{

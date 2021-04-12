@@ -3,14 +3,19 @@ package edu.ucalgary.ensf409;
 import java.util.*;
 import java.io.*;
 
+/**
+ * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class FileIO {
     
 
 
-	static File outFile;
-    static FileWriter fw;
-    static PrintWriter pw;
+	public static File outFile;
+    public static FileWriter fw;
+    public static PrintWriter pw;
 
     private  String cat = null;
     private  String type = null;

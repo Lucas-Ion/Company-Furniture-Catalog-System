@@ -1,5 +1,5 @@
 /**
- * @author: Athul Rajagopal <a href="mailto:athul.rajagopal@ucalgary.ca">athul.rajagopal@ucalgary.ca</a>
+ * @author: Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
  * @version: 1.3
  * @since: 1.0
  */
@@ -11,9 +11,9 @@ import java.util.*;
 public class Inventory {
     private Connection dbConnect;
     private ResultSet results;
-    public final String DBURL;
-    public final String USERNAME;
-    public final String PASSWORD;
+    private final String DBURL;
+    private final String USERNAME;
+    private final String PASSWORD;
 
     public Inventory(String url, String user, String pass) {
         DBURL = url;
