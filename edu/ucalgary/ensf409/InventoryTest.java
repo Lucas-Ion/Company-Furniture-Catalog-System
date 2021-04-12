@@ -151,12 +151,13 @@ public class InventoryTest {
 		try {
 			Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 			invent.initializeConnection();
-			invent.deleteFurniture("Chair", "C0000");
 			invent.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 69,  "002");
 			//invent.close();
 			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 			Statement myStmt = dbConnect.createStatement();
-			results = myStmt.executeQuery("SELECT  ID  FROM chair WHERE  ID = C0000");
+			//String ID = "'C0000'";
+			results = myStmt.executeQuery("SELECT  ID  FROM chair WHERE  ID = 'C0000'");
+			results.next();
 			assertEquals("InsertChair did not insert the item into the database, as the ID of the retrieved entry does not match the ID of the inserted entry",results.getString("ID"),"C0000");
 			
 		}
@@ -376,7 +377,7 @@ public class InventoryTest {
 	/*
 	 * 
 	 */
-	public void test_setCategory()
+	public void test_setCategory_Order()
 	{
 		Boolean[] parts = {true,true,true,true};
 		Furniture furniture = new Furniture(parts,300,"0003","1234","Desk");
@@ -392,7 +393,7 @@ public class InventoryTest {
 	/*
 	 * 
 	 */
-	public void test_getCategory()
+	public void test_getCategory_Order()
 	{
 		Boolean[] parts = {true,true,true,true};
 		Furniture furniture = new Furniture(parts,300,"0003","1234","Desk");
@@ -463,7 +464,7 @@ public class InventoryTest {
 		boolean realvalue = request.attemptOrder(furnitureInventory);
 		boolean expectedvalue = false;
 		furnitureInventory.close();
-		assertEquals("test_FurnitureOrder_cannot_fullfill_order did not return the expected value",expectedvalue,realvalue);
+		assertEquals("attemptOrder did not return the expected value",expectedvalue,realvalue);
 	}
 	@Test
 	//test to ensure when an order can be filled, all the appropriate items are removed from the database
@@ -489,7 +490,9 @@ public class InventoryTest {
 	
 	@Test
 	/**
-	 * Checks and makes sure Order format and content is correct
+	 * Checks and makes sure Order format and content is correct.
+	 * formatOutput is the string that is written to the file
+	 * Looks for 1 Desk Lamp
 	 */
 	public void test_formatOutput()
 	{
@@ -514,6 +517,18 @@ public class InventoryTest {
 				"Total Price: $20\n" ;
 		assertEquals("formatOutput did not return the expected String",expectedOutput,test.formatOutput());
 	}
+	@Test
+	/*
+	 * 
+	 */
+	public void test_getCategory_enum()
+	{
+		String expectedcategory = "Lamp";
+		FurnitureCategory cat = FurnitureCategory.getCategory(expectedcategory);
+		String realcategory = cat.toString();
+		assertEquals("getCategory from the enum FurnitureCategory did not return the Cateogry as expected",realcategory,expectedcategory);
+	}
+	
 	
 	/*@Test
 	public void test_main()
