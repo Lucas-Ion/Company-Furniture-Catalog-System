@@ -1,5 +1,11 @@
 package edu.ucalgary.ensf409;
 
+/**
+ * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
+ * @version 1.0
+ * @since 1.0
+ */
+
 //Contains information about an individual filing, including its ID, Type, Price, ManuID, and 
 //whether it has a base and a bulb.
 public class Lamp extends Furniture {

@@ -1,5 +1,11 @@
 package edu.ucalgary.ensf409;
 
+/**
+ * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
+ * @version 1.0
+ * @since 1.0
+ */
+
 //Contains information about an individual desk, including its ID, Type, Price, ManuID, and 
 //whether it has legs, a top, and a drawer.
 public class Desk extends Furniture {
