@@ -22,7 +22,7 @@ public class InventoryTest {
 		ResultSet results = null;
 		ArrayList<Chair> expectedchairs = new ArrayList<Chair>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM chair WHERE Type = '" + "Mesh" + "'");
             	while (results.next()) {
@@ -254,10 +254,184 @@ public class InventoryTest {
 		
 		 
 	}
+	@Test
+	/**
+	 * Testing addParts method of Order class 
+	 * Checking to ensure that the price is  added to totalCost, numOfComponents array is updated accordingly, and that the added furniture is added to  furnitureBought
+	 */
+	public void test_addParts()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,150,"0003","1234","swankydesk");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		int expectedcost = 150;
+		ArrayList<Furniture> furnitureBoughtExpected = new ArrayList<Furniture>();
+		furnitureBoughtExpected.add(furniture);
+		int[] numOfComponentsExpected = {1,1,1,1};
+		boolean furniturearraylistsareequal = Arrays.equals(testOrder.getFurnitureBought(),furnitureBoughtExpected.toArray(Furniture[]::new));
+		boolean finalverdict = false;
+		if(furniturearraylistsareequal == true && Arrays.equals(numOfComponentsExpected, testOrder.getNumOfComponents()) == true && expectedcost == testOrder.getTotalCost())
+		{
+			finalverdict = true;
+		}
+		assertEquals("addParts did not correctly add the part to testOrder",true,finalverdict);
+	}
+	@Test
+	/**
+	 * Testing isOrderFullfilled method of Order class
+	 * if  the number of single components for a given furniture object is less than the desired number of furniture, this should return false 
+	 */
+	public void test_isOrderFullfilled()
+	{
+		Boolean[] parts = {true,true,false,true};
+		Furniture furniture = new Furniture(parts,150,"0003","1234","swankydesk");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		boolean expected = false;
+		assertEquals("isOrderFullfilled did not return boolean as expected ",expected,testOrder.isOrderFulfilled());
+	}
+	@Test
+	/**
+	 * Testing the getter method for NumOfComponents in Order class
+	 * Fails if it does not return the expected Array
+	 */
+	public void test_getNumOfComponents()
+	{
+		Boolean[] parts = {true,true,false,true};
+		Furniture furniture = new Furniture(parts,150,"0003","1234","swankydesk");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		int[] numOfComponentsExpected = {1,1,0,1};
+		assertEquals("getNumOfComponents did not return the expected int[]",true,Arrays.equals(numOfComponentsExpected, testOrder.getNumOfComponents()));
+	}
+	@Test
+	/*
+	 *  Testing the getter method for getTotalCost in Order class
+	 *  adding two pieces of furniture to the order 
+	 *  will return false if the expectedTotalCost does not equal the value returned by getTotalCost
+	 */
+	public void test_getTotalCost()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,300,"0003","1234","swankydesk");
+		Furniture furniture1 = new Furniture(parts,400,"0003","1234","swankydesk");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		testOrder.addParts(furniture1);
+		int expectedTotalCost = 700;
+		assertEquals("getTotalCost did not return the expected totalCost",expectedTotalCost,testOrder.getTotalCost());
+	}
+	@Test 
+	/*
+	 *  Testing the getter method for getNumOfFurniture in Order class
+	 *  adding two pieces of furniture to the order 
+	 *  will return false if the expectedNumOfFurniture does not equal the value returned by get
+	 */
+	public void test_getNumOfFurniture()
+	{
+		Order testOrder = new Order(4,2);
+		int expectedNumOfFurniture = 2;
+		assertEquals("getNumOfFurniture did not return the expected NumOfFurniture",expectedNumOfFurniture,testOrder.getNumOfFurniture());
+	}
+	@Test
+	/*
+	 * Testing the getter method for getFurnitureBought
+	 * returns false if the Furniture[] returned does not match 
+	 */
+	public void test_getFurnitureBought()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,300,"0003","1234","swankydesk");
+		Furniture furniture1 = new Furniture(parts,400,"0003","1234","swankydesk");
+		Furniture[] expectedFurnitureBought = {furniture, furniture1};
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		testOrder.addParts(furniture1);
+		assertEquals("getFurnitureBought did not return the expected Furniture[]",true,Arrays.equals(expectedFurnitureBought,testOrder.getFurnitureBought()));
+	}
+	@Test
+	/*
+	 * Testing the getter method getNumFurnitureBoughjt
+	 * returns false if the expected number of furniture bought is not correct
+	 */
+	public void test_getNumFurnitureBought()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,300,"0003","1234","swankydesk");
+		Furniture furniture1 = new Furniture(parts,400,"0003","1234","swankydesk");
+		int expectednumFurnitureBought = 2;
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		testOrder.addParts(furniture1);
+		assertEquals("getNumFurnitureBought did not return the expected number of furniture bought",expectednumFurnitureBought,testOrder.getNumFurnitureBought());
+	}
+	@Test
+	/*
+	 * 
+	 */
+	public void test_setCategory()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,300,"0003","1234","Desk");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		//String cat = "Desk";
+		testOrder.setCategory(FurnitureCategory.getCategory("Desk"));
+		String expectedstring = "Desk";
+		String realstring = testOrder.getCategory().name();
+		assertEquals("getCategory did not return category as expected",expectedstring,realstring);
+	}
+	@Test
+	/*
+	 * 
+	 */
+	public void test_getCategory()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,300,"0003","1234","Desk");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		//String cat = "Desk";
+		testOrder.setCategory(FurnitureCategory.getCategory("Lamp"));
+		String expectedstring = "Lamp";
+		String realstring = testOrder.getCategory().name();
+		assertEquals("getCategory did not return category as expected",expectedstring,realstring);
+	}
+	@Test
+	/**
+	 * 
+	 */
+	public void test_setType()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,300,"0003","1234","Standing");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		testOrder.setType("Swing Arm");
+		String expectedType = "Swing Arm";
+		assertEquals("setType did not set the type correctly",expectedType,testOrder.getType());
+		
+	}
+	@Test
+	/**
+	 * 
+	 */
+	public void test_getType()
+	{
+		Boolean[] parts = {true,true,true,true};
+		Furniture furniture = new Furniture(parts,300,"0003","1234","Standing");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		testOrder.setType("Swing Arm");
+		String expectedType = "Swing Arm";
+		assertEquals("getType did not set the type correctly",expectedType,testOrder.getType());
+		
+	}
 	
 	@Test
 	//Testing Furniture Order for 2 desk lamps. The total price should be no more than 40 dollars.
-	public void test_FurnitureOrder_find_lowest_price_2DeskLamps()
+	public void test_getCheapestOrder()
 	{
 		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 		furnitureInventory.initializeConnection();
@@ -274,7 +448,7 @@ public class InventoryTest {
 	
 	@Test
 	//Test to make sure attemptOrder returns false when it gets an order it cannot fill
-	public void test_FurnitureOrder_cannot_fullfill_order()
+	public void test_attemptOrder()
 	{
 		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 		furnitureInventory.initializeConnection();
@@ -306,6 +480,55 @@ public class InventoryTest {
 		assertEquals("sendOrderToDatabase did not remove the items from the database",true,Arrays.equals(expectedvalue.toArray(Furniture[]::new),realvalue.toArray(Furniture[]::new),( a, b)->a.id == b.id ?1:0));
 	}
 	
+	
+	@Test
+	/**
+	 * Checks and makes sure Order format and content is correct
+	 */
+	public void test_formatOutput()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Lamp");
+		test.setType("Desk");
+		test.setQuantity(1);
+		test.setDate("12/12/21");
+		test.setContact("Joe Test");
+		test.setFacultyName("Software Engineering");
+		String expectedOutput = "Furniture Order Form\n" + 
+				"\n" + 
+				"Faculty name: Software Engineering\n" + 
+				"Contract: Joe Test\n" + 
+				"Date 12/12/21\n" + 
+				"\n" + 
+				"Original Request: Desk Lamp, 1\n" + 
+				"\n" + 
+				"Items ordered\n" + 
+				"ID: L564\n" +  
+				"\n" + 
+				"Total Price: $20\n" ;
+		assertEquals("formatOutput did not return the expected String",expectedOutput,test.formatOutput());
+	}
+	
+	/*@Test
+	public void test_main()
+	{
+		Main main = new Main();
+		main.catSelect = 1; //select a chair
+		main.type = "Mesh";//select mesh chair
+		main.quantity = 2;
+		
+		String[] args = {"",""};
+		main.main(args);
+		main.catSelect = 1; //select a chair
+		main.type = "Mesh";//select mesh chair
+		main.quantity = 2;
+		
+		 
+		
+	}
+	*/
+    
+    
 	
 	
 	
