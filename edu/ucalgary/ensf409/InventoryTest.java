@@ -13,8 +13,12 @@ import org.junit.Test;
  * @version 1.0
  * @since 1.0
  */
-
+//Please replace 'SQLusername' and 'SQLpassword' to match the username and password used to login to your local SQL server.
+//Please also refresh your database 'inventory.sql' before running these tests as there are some tests which remove items from the database. Failure to do so would result in errors as the tests
+//expect a full database. 
 public class InventoryTest {
+	private String SQLusername = "ensf409";
+	private String SQLpassword = "ensf409";
 	public InventoryTest()
 	{
 		
@@ -28,7 +32,7 @@ public class InventoryTest {
 		ResultSet results = null;
 		ArrayList<Chair> expectedchairs = new ArrayList<Chair>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM chair WHERE Type = '" + "Mesh" + "'");
             	while (results.next()) {
@@ -47,7 +51,7 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Chair> realchairs = invent.selectChairsByType("Mesh");
 		//Object[] realchairr = realchairs.toArray();
@@ -66,7 +70,7 @@ public class InventoryTest {
 		ResultSet results = null;
 		ArrayList<Desk> expecteddesk = new ArrayList<Desk>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM desk WHERE Type = '" + "Adjustable" + "'");
             	while (results.next()) {
@@ -80,7 +84,7 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Desk> realdesk = invent.selectDesksByType("Adjustable");
 		assertEquals("selectDesksByType did not return ArrayList<Desk> as expected",true,Arrays.equals(expecteddesk.toArray(Desk[]::new),realdesk.toArray(Desk[]::new),( a, b)->a.id == b.id ?1:0));
@@ -95,7 +99,7 @@ public class InventoryTest {
 		ResultSet results = null;
 		ArrayList<Filing> expectedfilings = new ArrayList<Filing>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM filing WHERE Type = '" + "Small" + "'");
             	while (results.next()) {
@@ -109,7 +113,7 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Filing> realfiling  = invent.selectFilingsByType("Small");
 		assertEquals("selectFilingsByType did not return ArrayList<Filing> as expected",true,Arrays.equals(expectedfilings.toArray(Filing[]::new),realfiling.toArray(Filing[]::new),( a, b)->a.id == b.id ?1:0));
@@ -124,7 +128,7 @@ public class InventoryTest {
 		ResultSet results = null;
 		ArrayList<Lamp> expectedlamp = new ArrayList<Lamp>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM lamp WHERE Type = '" + "Desk" + "'");
             	while (results.next()) {
@@ -138,7 +142,7 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Lamp> realLamp  = invent.selectLampsByType("Desk");
 		assertEquals("selectLampsByType did not return ArrayList<Lamp> as expected",true,Arrays.equals(expectedlamp.toArray(Lamp[]::new),realLamp.toArray(Lamp[]::new),( a, b)->a.id == b.id ?1:0));
@@ -149,11 +153,11 @@ public class InventoryTest {
 		Connection dbConnect = null;
 		ResultSet results = null;
 		try {
-			Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+			Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 			invent.initializeConnection();
 			invent.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 69,  "002");
 			//invent.close();
-			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 			Statement myStmt = dbConnect.createStatement();
 			//String ID = "'C0000'";
 			results = myStmt.executeQuery("SELECT  ID  FROM chair WHERE  ID = 'C0000'");
@@ -173,7 +177,7 @@ public class InventoryTest {
 		ResultSet results = null;
 		ArrayList<String> expectedvalue = new ArrayList<String>();
 		try {
-				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 				Statement myStmt = dbConnect.createStatement();
 	            results = myStmt.executeQuery("SELECT ManuID FROM " + "Chair" );
 	            
@@ -195,7 +199,7 @@ public class InventoryTest {
 		{
 			e.printStackTrace();
 		}
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<String> realvalue = invent.findManuIDs("Chair");
 		assertEquals("findManuID did not return the expected ArrayList<String> which contains the manuID's",true,Arrays.equals(expectedvalue.toArray(String[]::new),realvalue.toArray(String[]::new),( a, b)->a == b ?1:0));
@@ -209,7 +213,7 @@ public class InventoryTest {
 		ArrayList<String> ManuID = new ArrayList<String>();
 		ArrayList<String> expectedManufacturerList = new ArrayList<String>();
 		try {
-				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 				Statement myStmt = dbConnect.createStatement();
 	            results = myStmt.executeQuery("SELECT ManuID FROM " + "Desk" );
 	            
@@ -234,7 +238,7 @@ public class InventoryTest {
 		for(String manuID: ManuID)
 		{
 		try {
-			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 			Statement myStmt = dbConnect.createStatement();
             results = myStmt.executeQuery("SELECT Name FROM manufacturer WHERE ManuID =  '" + manuID +"'" );
             
@@ -254,7 +258,7 @@ public class InventoryTest {
 	}
 		//dbConnect.close();
 		//inventory code here
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<String> realManufacturerList = invent.findManufacturers("Desk");
 		assertEquals("findManufacturers did not return the expected ArrayList<String> which contains the manufacturer Names",true,Arrays.equals(expectedManufacturerList.toArray(String[]::new),realManufacturerList.toArray(String[]::new),( a, b)->a == b ?1:0));
@@ -440,7 +444,7 @@ public class InventoryTest {
 	//Testing Furniture Order for 2 desk lamps. The total price should be no more than 40 dollars.
 	public void test_getCheapestOrder()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Lamp"),"Desk",2);
 		Order order = null;
@@ -457,7 +461,7 @@ public class InventoryTest {
 	//Test to make sure attemptOrder returns false when it gets an order it cannot fill
 	public void test_attemptOrder()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Filing"),"Small",5);
 		Order order = null;
@@ -470,7 +474,7 @@ public class InventoryTest {
 	//test to ensure when an order can be filled, all the appropriate items are removed from the database
 	public void test_sendOrderToDatabase()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		ArrayList<Desk> expectedvalue =  furnitureInventory.selectDesksByType("Standing");
 		expectedvalue.remove(0);
@@ -506,8 +510,8 @@ public class InventoryTest {
 		String expectedOutput = "Furniture Order Form\n" + 
 				"\n" + 
 				"Faculty name: Software Engineering\n" + 
-				"Contact: Joe Test\n" + 
-				"Date: 12/12/21\n" + 
+				"Contract: Joe Test\n" + 
+				"Date 12/12/21\n" + 
 				"\n" + 
 				"Original Request: Desk Lamp, 1\n" + 
 				"\n" + 
