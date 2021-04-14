@@ -595,8 +595,8 @@ public class InventoryTest {
 		String expectedOutput = "Furniture Order Form\n" + 
 				"\n" + 
 				"Faculty name: Software Engineering\n" + 
-				"Contact: Joe Test\n" + 
-				"Date: 12/12/21\n" + 
+				"Contract: Joe Test\n" + 
+				"Date 12/12/21\n" + 
 				"\n" + 
 				"Original Request: Desk Lamp, 1\n" + 
 				"\n" + 
@@ -671,8 +671,10 @@ public class InventoryTest {
 		expectedOutput.append("User Request: " + "Adjustable" + " " + "Desk" + ", " + "6" + "\n"); 
 			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.\n");
 			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
 			
-		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expectedOutput.toString().trim(), outputStream.toString().trim());
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
 		
 	}
 	@Test
