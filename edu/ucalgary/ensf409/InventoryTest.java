@@ -25,7 +25,7 @@ import org.junit.Test;
 //Please also refresh your database 'inventory.sql' before running these tests as there are some tests which remove items from the database. Failure to do so would result in errors as the tests
 //expect a full database. 
 public class InventoryTest {
-	private String SQLusername = "ensf409";
+	private String SQLusername = "lucas";
 	private String SQLpassword = "ensf409";
 	private  PrintStream standardOut = System.out;
 	private  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -530,7 +530,7 @@ public class InventoryTest {
 	//*********One of the tests that needs Original database as posted on D2L**********
 	public void test_attemptOrder()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Filing"),"Small",5);
 		Order order = null;
@@ -622,8 +622,8 @@ public class InventoryTest {
 		String expectedOutput = "Furniture Order Form\n" + 
 				"\n" + 
 				"Faculty name: Electrical Engineering\n" + 
-				"Contract: Michael Test\n" + 
-				"Date 06/12/21\n" + 
+				"Contact: Michael Test\n" + 
+				"Date: 06/12/21\n" + 
 				"\n" + 
 				"Original Request: Large Filing, 2\n" + 
 				"\n" + 
