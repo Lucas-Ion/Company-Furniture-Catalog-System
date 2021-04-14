@@ -4,8 +4,16 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.sql.*;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -19,10 +27,9 @@ import org.junit.Test;
 public class InventoryTest {
 	private String SQLusername = "ensf409";
 	private String SQLpassword = "ensf409";
-	public InventoryTest()
-	{
-		
-	}
+	private  PrintStream standardOut = System.out;
+	private  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	
 	@Test 
 	/**
 	 * testing the selectChairssByType method of Inventory class
@@ -568,11 +575,15 @@ public class InventoryTest {
 	
 	@Test
 	/**
-	 * Checks and makes sure Order format and content is correct.
+	 * testing method formatOutput of FileIO class
+	 * 
 	 * formatOutput is the string that is written to the file
-	 * Looks for 1 Desk Lamp
+	 * Needs an Order where we can predict the output for comparison
+	 * Ordering 1 Desk Lamp fits this criterion, assuming a full database.
+	 * Note that the user input is simulated using the setters in the FileIO class. When the program is run outside of a testing framework, the setters are fed the userinput from Scanners.
 	 */
-	public void test_formatOutput()
+	//*********One of the tests that needs Original database as posted on D2L**********
+	public void test_formatOutput_1()
 	{
 		FileIO test = new FileIO();
 		test.setCat("Lamp");
@@ -595,6 +606,93 @@ public class InventoryTest {
 				"Total Price: $20\n" ;
 		assertEquals("formatOutput did not return the expected String",expectedOutput,test.formatOutput());
 	}
+	@Test
+	/**
+	 * Testing FormatOutput in a similar fashion to FormatOutput2 except that instead of ordering 1 item of type Lamp, we will order 2  Large Filing cabinets
+	 */
+	public void test_FormatOutput_2()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Filing");
+		test.setType("Large");
+		test.setQuantity(2);
+		test.setDate("06/12/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		String expectedOutput = "Furniture Order Form\n" + 
+				"\n" + 
+				"Faculty name: Electrical Engineering\n" + 
+				"Contract: Michael Test\n" + 
+				"Date 06/12/21\n" + 
+				"\n" + 
+				"Original Request: Large Filing, 2\n" + 
+				"\n" + 
+				"Items ordered\n" + 
+				"ID: F010\n" +
+				"ID: F011\n" +
+				"ID: F012\n" +
+				"ID: F015\n" +
+				"\n" + 
+				"Total Price: $600\n" ;
+		assertEquals("FormatOutput_2 did not return the expected String",expectedOutput,test.formatOutput());
+	}
+	@Before
+	public void setUp() {
+	    System.setOut(new PrintStream(outputStream));
+	}
+	@After//restoring output stream to original state once all  tests terminate
+	public void tearDown() {
+	    System.setOut(standardOut);
+	}
+	@Test
+	/**
+	 *  Test to see if FormatOutput informs the user that an Order cannot be fulfilled in the expected format when the selected category is  desk
+	 */
+	public void test_FormatOutput_3()
+	{
+		
+		
+		
+		File file = new File("original.txt");
+		File file2 = new File("new.txt");
+		
+		
+		FileIO test = new FileIO();
+		test.setCat("Desk");
+		test.setType("Adjustable");
+		test.setQuantity(6);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		StringBuilder expectedOutput = new StringBuilder();
+		//String expectedOutput = 
+		expectedOutput.append("Order not possible\n") ;
+		expectedOutput.append("User Request: " + "Adjustable" + " " + "Desk" + ", " + "6" + "\n"); 
+			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.\n");
+			expectedOutput.append("\n");
+			
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expectedOutput.toString().trim(), outputStream.toString().trim());
+		
+	}
+	@Test
+	/**
+	 * Testing to make sure format Output prints "Not a category" to the console when an invalid category is entered
+	 */
+	public void test_FormatOutput_4()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Car");
+		test.setType("Adjustable");
+		test.setQuantity(6);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		String expectedOutput = "Not a category";
+		assertEquals("test_FormatOutput_4 did not print the expected message to System.out",expectedOutput,outputStream.toString().trim());
+	}
+	
 	@Test
 	/*
 	 * 
