@@ -25,7 +25,7 @@ import org.junit.Test;
 //Please also refresh your database 'inventory.sql' before running these tests as there are some tests which remove items from the database. Failure to do so would result in errors as the tests
 //expect a full database. 
 public class InventoryTest {
-	private String SQLusername = "lucas";
+	private String SQLusername = "ensf409";
 	private String SQLpassword = "ensf409";
 	private  PrintStream standardOut = System.out;
 	private  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
