@@ -33,7 +33,7 @@ public class Main {
 
 		pw = new PrintWriter(fw);
 
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 		furnitureInventory.initializeConnection();
 		System.out.println();
 		System.out.println();
@@ -77,7 +77,7 @@ public class Main {
 		System.out.print("What is your first and last name: ");
 		contact = scan.nextLine();
 		System.out.println();
-		System.out.print("What is date you wish to place this order on (MM/DD/YYYY): ");
+		System.out.print("What is the date you wish to place this order on (MM/DD/YYYY): ");
 		date = scan.nextLine();
 		System.out.println();
 		System.out.println("                       Processing                          ");
