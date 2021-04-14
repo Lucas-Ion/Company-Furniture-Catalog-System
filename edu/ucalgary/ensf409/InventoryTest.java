@@ -24,6 +24,8 @@ import org.junit.Test;
 //Please replace 'SQLusername' and 'SQLpassword' to match the username and password used to login to your local SQL server.
 //Please also refresh your database 'inventory.sql' before running these tests as there are some tests which remove items from the database. Failure to do so would result in errors as the tests
 //expect a full database. 
+//also many of our tests have outputs that are predicted based on the database inventory.sql that was posted on D2l
+//these tests are marked with the idenfitier : //*********One of the tests that needs Original database as posted on D2L**********
 public class InventoryTest {
 	private String SQLusername = "ensf409";
 	private String SQLpassword = "ensf409";
@@ -528,7 +530,7 @@ public class InventoryTest {
 	 * Expect that it returns false. Therefore, if it returns true, the test has failed.  
 	 */
 	//*********One of the tests that needs Original database as posted on D2L**********
-	public void test_attemptOrder()
+	public void test_attemptOrder_false()
 	{
 		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
 		furnitureInventory.initializeConnection();
@@ -537,8 +539,25 @@ public class InventoryTest {
 		boolean realvalue = request.attemptOrder(furnitureInventory);
 		boolean expectedvalue = false;
 		furnitureInventory.close();
-		assertEquals("attemptOrder did not return the expected value",expectedvalue,realvalue);
+		assertEquals("attemptOrder_false did not return the expected value",expectedvalue,realvalue);
 	}
+	@Test
+	/*
+	 * Test of method attemptOrder of FurnitureOrder class
+	 * Test to ensure it returns true when an Order can be fulfilled, in this case, 1 desk lamps
+	 */
+	public void test_attemptOrder_true()
+	{
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
+		furnitureInventory.initializeConnection();
+		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Lamp"),"Desk",1);
+		Order order = null;
+		boolean realvalue = request.attemptOrder(furnitureInventory);
+		boolean expectedvalue = true;
+		furnitureInventory.close();
+		assertEquals("attemptOrder_true did not return the expected value",expectedvalue,realvalue);
+	}
+	
 	@Test
 	/**
 	 * Test of method sendOrderToDatabase of FurnitureOrder class 
@@ -608,7 +627,7 @@ public class InventoryTest {
 	}
 	@Test
 	/**
-	 * Testing FormatOutput in a similar fashion to FormatOutput2 except that instead of ordering 1 item of type Lamp, we will order 2  Large Filing cabinets
+	 * Testing FormatOutput in a similar fashion to FormatOutput1  except that instead of ordering 1 item of type Lamp, we will order 2  Large Filing cabinets
 	 */
 	public void test_FormatOutput_2()
 	{
@@ -764,7 +783,7 @@ public class InventoryTest {
 	}
 	@Test
 	/*
-	 * 
+	 *  Testing getter for enum
 	 */
 	public void test_getCategory_enum()
 	{
