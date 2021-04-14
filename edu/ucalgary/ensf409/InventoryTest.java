@@ -13,22 +13,30 @@ import org.junit.Test;
  * @version 1.0
  * @since 1.0
  */
-
+//Please replace 'SQLusername' and 'SQLpassword' to match the username and password used to login to your local SQL server.
+//Please also refresh your database 'inventory.sql' before running these tests as there are some tests which remove items from the database. Failure to do so would result in errors as the tests
+//expect a full database. 
 public class InventoryTest {
+	private String SQLusername = "ensf409";
+	private String SQLpassword = "ensf409";
 	public InventoryTest()
 	{
 		
 	}
-	@Test //testing selectChairsByType to ensure that the returned ArrayList <Chair>  is as expected
-	//this is accomplished by the testing function invidually accessing the database and populating ArrayList<chair> in a similar fashion to how the program would do it
-	//if the ArrayList<Chair> does not match then there is an error
+	@Test 
+	/**
+	 * testing the selectChairssByType method of Inventory class
+	 * Accessing the database directly and populating an ArrayList<Chairs> expectedchairs
+	 * Comparing this to the ArrayList<Chairs> returned by selectChairsByType.
+	 * Test fails if they do not match
+	 */
 	public void test_selectChairsByType()
 	{
 		Connection dbConnect = null;
 		ResultSet results = null;
 		ArrayList<Chair> expectedchairs = new ArrayList<Chair>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM chair WHERE Type = '" + "Mesh" + "'");
             	while (results.next()) {
@@ -47,7 +55,7 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Chair> realchairs = invent.selectChairsByType("Mesh");
 		//Object[] realchairr = realchairs.toArray();
@@ -57,16 +65,19 @@ public class InventoryTest {
 		assertEquals("selectChairsByType did not return ArrayList<Chair> as expected",true,Arrays.equals(expectedchairs.toArray(Chair[]::new),realchairs.toArray(Chair[]::new),( a, b)->a.id == b.id ?1:0));
 	}
 	@Test
-	//testing selectDeskByType to ensure that the returned ArrayList <Desk>  is as expected
-		//this is accomplished by the testing function invidually accessing the database and populating ArrayList<Desk> in a similar fashion to how the program would do it
-		//if the ArrayList<Desk> does not match then there is an error
+	/**
+	 * testing the selectDesksByType method of Inventory class
+	 * Accessing the database directly and populating an ArrayList<Desk> expecteddesk
+	 * Comparing this to the ArrayList<Desk> returned by selectDesksByType.
+	 * Test fails if they do not match
+	 */
 	public void test_selectDesksByType()
 	{
 		Connection dbConnect = null;
 		ResultSet results = null;
 		ArrayList<Desk> expecteddesk = new ArrayList<Desk>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM desk WHERE Type = '" + "Adjustable" + "'");
             	while (results.next()) {
@@ -80,22 +91,25 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Desk> realdesk = invent.selectDesksByType("Adjustable");
 		assertEquals("selectDesksByType did not return ArrayList<Desk> as expected",true,Arrays.equals(expecteddesk.toArray(Desk[]::new),realdesk.toArray(Desk[]::new),( a, b)->a.id == b.id ?1:0));
 	}
 	@Test
-	//testing selectFilingsByType to ensure that the returned ArrayList <Filing>  is as expected
-			//this is accomplished by the testing function invidually accessing the database and populating ArrayList<Filing> in a similar fashion to how the program would do it
-			//if the ArrayList<Desk> does not match then there is an error
+	/**
+	 * testing the selectFilingsByType method of Inventory class
+	 * Accessing the database directly and populating an ArrayList<Filings> expectedfilings
+	 * Comparing this to the ArrayList<Filings> returned by selectFilingsByType
+	 * Test fails if they do not match
+	 */
 	public  void test_selectFilingsByType()
 	{
 		Connection dbConnect = null;
 		ResultSet results = null;
 		ArrayList<Filing> expectedfilings = new ArrayList<Filing>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM filing WHERE Type = '" + "Small" + "'");
             	while (results.next()) {
@@ -109,22 +123,25 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Filing> realfiling  = invent.selectFilingsByType("Small");
 		assertEquals("selectFilingsByType did not return ArrayList<Filing> as expected",true,Arrays.equals(expectedfilings.toArray(Filing[]::new),realfiling.toArray(Filing[]::new),( a, b)->a.id == b.id ?1:0));
 	}
 	@Test
-	//testing selectLampsByType to ensure that the returned ArrayList <Lamp>  is as expected
-			//this is accomplished by the testing function invidually accessing the database and populating ArrayList<Filing> in a similar fashion to how the program would do it
-			//if the ArrayList<Desk> does not match then there is an error
+	/**
+	 * testing the selectLampsByType method of Inventory class
+	 * Accessing the database directly and populating an ArrayList<Lamp> expectedLamp
+	 * Comparing this to the ArrayList<Lamp> returned by selectLampsByType.
+	 * Test fails if they do not match
+	 */
 	public  void test_selectLampsByType()
 	{
 		Connection dbConnect = null;
 		ResultSet results = null;
 		ArrayList<Lamp> expectedlamp = new ArrayList<Lamp>();
 		try {
-            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+            	dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
             	Statement myStmt = dbConnect.createStatement();
             	results = myStmt.executeQuery("SELECT * FROM lamp WHERE Type = '" + "Desk" + "'");
             	while (results.next()) {
@@ -138,22 +155,26 @@ public class InventoryTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<Lamp> realLamp  = invent.selectLampsByType("Desk");
 		assertEquals("selectLampsByType did not return ArrayList<Lamp> as expected",true,Arrays.equals(expectedlamp.toArray(Lamp[]::new),realLamp.toArray(Lamp[]::new),( a, b)->a.id == b.id ?1:0));
 	}
 	@Test
+	/**
+	 * Testing the method insertChair of Inventory Class  by acessing the database direclty  and attemtping to retrieve the inserted Chair.
+	 * The test fails if the id of the retrieved Chair does not match the  id of the Chair inserted using insertChair
+	 */
 	public void test_insertChair()
 	{
 		Connection dbConnect = null;
 		ResultSet results = null;
 		try {
-			Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+			Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 			invent.initializeConnection();
 			invent.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 69,  "002");
 			//invent.close();
-			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 			Statement myStmt = dbConnect.createStatement();
 			//String ID = "'C0000'";
 			results = myStmt.executeQuery("SELECT  ID  FROM chair WHERE  ID = 'C0000'");
@@ -167,13 +188,18 @@ public class InventoryTest {
 		}
 	}
 	@Test
+	/**
+	 * Testing the method findManuIDs of the Inventory class 
+	 * Tested by populating an ArrayList<String> of all the uniqeManuID's by connecting to the database directly and then comparing that with the ArrayList<String> returned by findManuID's
+	 * The test fails if these two ArrayList<String> do not match
+	 */
 	public void test_findManuIDs()
 	{
 		Connection dbConnect = null;
 		ResultSet results = null;
 		ArrayList<String> expectedvalue = new ArrayList<String>();
 		try {
-				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 				Statement myStmt = dbConnect.createStatement();
 	            results = myStmt.executeQuery("SELECT ManuID FROM " + "Chair" );
 	            
@@ -195,12 +221,17 @@ public class InventoryTest {
 		{
 			e.printStackTrace();
 		}
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<String> realvalue = invent.findManuIDs("Chair");
 		assertEquals("findManuID did not return the expected ArrayList<String> which contains the manuID's",true,Arrays.equals(expectedvalue.toArray(String[]::new),realvalue.toArray(String[]::new),( a, b)->a == b ?1:0));
 	}
 	@Test
+	/**
+	 * Testing the method findManufacturers of the Inventory class
+	 * First populating a ArrayList<String> of all the unique manuID's and then using those manuID's to populate an ArrayList<String> of manufacturers
+	 * Comparing this ArrayList<String> to the ArrayList<String> returned by findManufacturers. The test fails if they do not match
+	 */
 	public void test_findManufacturers()
 	{
 		Connection dbConnect = null;
@@ -209,14 +240,13 @@ public class InventoryTest {
 		ArrayList<String> ManuID = new ArrayList<String>();
 		ArrayList<String> expectedManufacturerList = new ArrayList<String>();
 		try {
-				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+				dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 				Statement myStmt = dbConnect.createStatement();
 	            results = myStmt.executeQuery("SELECT ManuID FROM " + "Desk" );
 	            
 	            results.next();
 	            String tmp = results.getString("ManuID");
 	            ManuID.add(tmp);
-	            //the 3 lines above are needed to store the ManuID from the first line of results
 	            while (results.next()) {
 	                 if (!results.getString("ManuID").equals(tmp)) {
 	                     tmp = results.getString("ManuID");
@@ -234,7 +264,7 @@ public class InventoryTest {
 		for(String manuID: ManuID)
 		{
 		try {
-			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 			Statement myStmt = dbConnect.createStatement();
             results = myStmt.executeQuery("SELECT Name FROM manufacturer WHERE ManuID =  '" + manuID +"'" );
             
@@ -254,7 +284,7 @@ public class InventoryTest {
 	}
 		//dbConnect.close();
 		//inventory code here
-		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory invent = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		invent.initializeConnection();
 		ArrayList<String> realManufacturerList = invent.findManufacturers("Desk");
 		assertEquals("findManufacturers did not return the expected ArrayList<String> which contains the manufacturer Names",true,Arrays.equals(expectedManufacturerList.toArray(String[]::new),realManufacturerList.toArray(String[]::new),( a, b)->a == b ?1:0));
@@ -264,12 +294,12 @@ public class InventoryTest {
 	@Test
 	/**
 	 * Testing addParts method of Order class 
-	 * Checking to ensure that the price is  added to totalCost, numOfComponents array is updated accordingly, and that the added furniture is added to  furnitureBought
+	 * Checking to ensure that the price is  added to totalCost, numOfComponents array is updated accordingly, and that the added furniture is added to furnitureBought
 	 */
 	public void test_addParts()
 	{
 		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,150,"0003","1234","swankydesk");
+		Furniture furniture = new Furniture(parts,150,"001","D1234","Traditional");
 		Order testOrder = new Order(4,1);
 		testOrder.addParts(furniture);
 		int expectedcost = 150;
@@ -282,31 +312,54 @@ public class InventoryTest {
 		{
 			finalverdict = true;
 		}
-		assertEquals("addParts did not correctly add the part to testOrder",true,finalverdict);
+		assertEquals("addParts did not correctly add the part to the Order",true,finalverdict);
+	}
+	@Test
+	/*
+	 * Testing isOrderFullfilled method of Order class
+	 * Should return true, as there are enough parts to make 1 desk
+	 */
+	public void test_isOrderFullfilled_true()
+	{
+		//2 desks in the furnitureBought array, with numComponents[] having value of {1,1,1,1}
+				//therefore between the two desks there are enough parts to make 1 desk
+				//should return true if OrderFullfilled is working as expected
+		Boolean[] parts = {true,true,false,true};
+		Boolean[] parts1 = {false,false,true,false};
+
+		Furniture furniture = new Furniture(parts,150,"001","D1234","Standing");
+		Furniture furniture1 = new Furniture(parts1, 200,"002","D4321","Standing");
+		Order testOrder = new Order(4,1);
+		testOrder.addParts(furniture);
+		testOrder.addParts(furniture1);
+		boolean expected = true;
+		assertEquals("isOrderFullfilled_true did not return boolean as expected ",expected,testOrder.isOrderFulfilled());
 	}
 	@Test
 	/**
 	 * Testing isOrderFullfilled method of Order class
-	 * if  the number of single components for a given furniture object is less than the desired number of furniture, this should return false 
+	 * Should return false, as there aren't enough parts to make 1 desk
 	 */
-	public void test_isOrderFullfilled()
+	public void test_isOrderFullfilled_false()
 	{
+		//only 1 desk in the furnitureBought array, with numComponents[] having value of {1,1,0,1}
+		//therefore there aren't enough parts to make 1 desk. 
+		//should return false if OrderFullfilled is working as expected
 		Boolean[] parts = {true,true,false,true};
-		Furniture furniture = new Furniture(parts,150,"0003","1234","swankydesk");
+		Furniture furniture = new Furniture(parts,150,"001","D1234","Standing");
 		Order testOrder = new Order(4,1);
 		testOrder.addParts(furniture);
 		boolean expected = false;
-		assertEquals("isOrderFullfilled did not return boolean as expected ",expected,testOrder.isOrderFulfilled());
+		assertEquals("isOrderFullfilled_false did not return boolean as expected ",expected,testOrder.isOrderFulfilled());
 	}
 	@Test
 	/**
-	 * Testing the getter method for NumOfComponents in Order class
-	 * Fails if it does not return the expected Array
+	 * Testing the getter method for getNumOfComponents in Order class
 	 */
 	public void test_getNumOfComponents()
 	{
 		Boolean[] parts = {true,true,false,true};
-		Furniture furniture = new Furniture(parts,150,"0003","1234","swankydesk");
+		Furniture furniture = new Furniture(parts,150,"003","D4521","Traditional");
 		Order testOrder = new Order(4,1);
 		testOrder.addParts(furniture);
 		int[] numOfComponentsExpected = {1,1,0,1};
@@ -315,42 +368,37 @@ public class InventoryTest {
 	@Test
 	/*
 	 *  Testing the getter method for getTotalCost in Order class
-	 *  adding two pieces of furniture to the order 
-	 *  will return false if the expectedTotalCost does not equal the value returned by getTotalCost
 	 */
 	public void test_getTotalCost()
 	{
 		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,300,"0003","1234","swankydesk");
-		Furniture furniture1 = new Furniture(parts,400,"0003","1234","swankydesk");
+		Furniture furniture = new Furniture(parts,150,"001","D5678","Standing");
+		Furniture furniture1 = new Furniture(parts,200,"002","D7891","Standing");
 		Order testOrder = new Order(4,1);
 		testOrder.addParts(furniture);
 		testOrder.addParts(furniture1);
-		int expectedTotalCost = 700;
+		int expectedTotalCost = 350;
 		assertEquals("getTotalCost did not return the expected totalCost",expectedTotalCost,testOrder.getTotalCost());
 	}
 	@Test 
 	/*
-	 *  Testing the getter method for getNumOfFurniture in Order class
-	 *  adding two pieces of furniture to the order 
-	 *  will return false if the expectedNumOfFurniture does not equal the value returned by get
+	 *  Testing the getter method  getNumOfFurniture in Order class
 	 */
 	public void test_getNumOfFurniture()
 	{
 		Order testOrder = new Order(4,2);
 		int expectedNumOfFurniture = 2;
-		assertEquals("getNumOfFurniture did not return the expected NumOfFurniture",expectedNumOfFurniture,testOrder.getNumOfFurniture());
+		assertEquals("getNumOfFurniture did not return the expected number of furniture",expectedNumOfFurniture,testOrder.getNumOfFurniture());
 	}
 	@Test
 	/*
-	 * Testing the getter method for getFurnitureBought
-	 * returns false if the Furniture[] returned does not match 
+	 * Testing the getter method  getFurnitureBought of Order class
 	 */
 	public void test_getFurnitureBought()
 	{
 		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,300,"0003","1234","swankydesk");
-		Furniture furniture1 = new Furniture(parts,400,"0003","1234","swankydesk");
+		Furniture furniture = new Furniture(parts,300,"002","C1234","Mesh");
+		Furniture furniture1 = new Furniture(parts,400,"003","C4321","Mesh");
 		Furniture[] expectedFurnitureBought = {furniture, furniture1};
 		Order testOrder = new Order(4,1);
 		testOrder.addParts(furniture);
@@ -359,14 +407,13 @@ public class InventoryTest {
 	}
 	@Test
 	/*
-	 * Testing the getter method getNumFurnitureBoughjt
-	 * returns false if the expected number of furniture bought is not correct
+	 * Testing the getter method getNumFurnitureBought of Order class
 	 */
 	public void test_getNumFurnitureBought()
 	{
 		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,300,"0003","1234","swankydesk");
-		Furniture furniture1 = new Furniture(parts,400,"0003","1234","swankydesk");
+		Furniture furniture = new Furniture(parts,300,"002","C1234","Mesh");
+		Furniture furniture1 = new Furniture(parts,400,"001","C4321","Mesh");
 		int expectednumFurnitureBought = 2;
 		Order testOrder = new Order(4,1);
 		testOrder.addParts(furniture);
@@ -375,89 +422,108 @@ public class InventoryTest {
 	}
 	@Test
 	/*
-	 * 
+	 * Testing the setCategory method of Order class
 	 */
 	public void test_setCategory_Order()
 	{
-		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,300,"0003","1234","Desk");
 		Order testOrder = new Order(4,1);
-		testOrder.addParts(furniture);
-		//String cat = "Desk";
 		testOrder.setCategory(FurnitureCategory.getCategory("Desk"));
 		String expectedstring = "Desk";
 		String realstring = testOrder.getCategory().name();
-		assertEquals("getCategory did not return category as expected",expectedstring,realstring);
+		assertEquals("setCategory_Order did not return category as expected",expectedstring,realstring);
 	}
 	@Test
 	/*
-	 * 
+	 * Testing the getCategory method of Order class
 	 */
 	public void test_getCategory_Order()
 	{
-		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,300,"0003","1234","Desk");
 		Order testOrder = new Order(4,1);
-		testOrder.addParts(furniture);
-		//String cat = "Desk";
 		testOrder.setCategory(FurnitureCategory.getCategory("Lamp"));
 		String expectedstring = "Lamp";
 		String realstring = testOrder.getCategory().name();
-		assertEquals("getCategory did not return category as expected",expectedstring,realstring);
+		assertEquals("getCategory_Order did not return category as expected",expectedstring,realstring);
 	}
 	@Test
 	/**
-	 * 
+	 *  Testing the setter method setType of Order class
 	 */
 	public void test_setType()
 	{
-		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,300,"0003","1234","Standing");
-		Order testOrder = new Order(4,1);
-		testOrder.addParts(furniture);
-		testOrder.setType("Swing Arm");
-		String expectedType = "Swing Arm";
+		Order testOrder = new Order(2,2);
+		testOrder.setType("Kneeling");
+		String expectedType = "Kneeling";
 		assertEquals("setType did not set the type correctly",expectedType,testOrder.getType());
 		
 	}
 	@Test
 	/**
-	 * 
+	 * Testing the getter method getType of Order class
 	 */
 	public void test_getType()
 	{
-		Boolean[] parts = {true,true,true,true};
-		Furniture furniture = new Furniture(parts,300,"0003","1234","Standing");
 		Order testOrder = new Order(4,1);
-		testOrder.addParts(furniture);
 		testOrder.setType("Swing Arm");
 		String expectedType = "Swing Arm";
-		assertEquals("getType did not set the type correctly",expectedType,testOrder.getType());
+		assertEquals("getType did not return the type correctly",expectedType,testOrder.getType());
 		
 	}
 	
 	@Test
-	//Testing Furniture Order for 2 desk lamps. The total price should be no more than 40 dollars.
+	/**
+	 * Testing method getCheapestOrder of FurnitureOrder class.. Checking if it actually returns the cheapest order. 
+	 * Chose to order 1 traditional desk because there is only 1 possible order that gives the cheapest price, assuming a full database. This order  is D8675 and D0890 with a total price of a $100
+	 * In this way we can compare the actual output to the expected output to ensure the method works.
+	 */
+	//*********One of the tests that needs Original database as posted on D2L**********
 	public void test_getCheapestOrder()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
-		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Lamp"),"Desk",2);
+		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Desk"),"Traditional",1);
 		Order order = null;
 		request.attemptOrder(furnitureInventory);
 		order = request.getCheapestOrder();
-		int expectedPrice = 40;
+		//creating an Order object that matches the   expected Order object that getCheapestOrder would return 
+		Order expectedOrder = new Order(3,1);
+		Boolean[] expectedItem1hasComponents = {true,true,false};
+		Furniture expectedItem1 = new Furniture(expectedItem1hasComponents,75,"001","D8675","Traditional");
+		Boolean[] expectedItem2hasComponents = {false,false,true};
+		Furniture expectedItem2 = new Furniture(expectedItem2hasComponents,25,"002","D0890","Traditional"); 
+		expectedOrder.addParts(expectedItem1);
+		expectedOrder.addParts(expectedItem2);
+		FurnitureCategory cat = FurnitureCategory.getCategory("Desk");
+		expectedOrder.setCategory(cat);
+		expectedOrder.setType("Traditional");
 		furnitureInventory.close();
-		assertEquals(" test_FurnitureOrder_find_lowest_price_2DeskLamps did not return the expected price",expectedPrice,order.getTotalCost());
+		Furniture[] furn = expectedOrder.getFurnitureBought();
+		for(int i = 0; i < furn.length; i++)
+		{
+			System.out.println( "ID:  " + furn[i].id);
+		}
+		boolean finalverdict = false;
+		//Check all the attributes to make sure the contents of expectedOrder and order are the same. Could not use expectedOrder.equals(order) because the method will compare if the references in ArrayList<Furniture> are the same, which returns false
+		if(expectedOrder.getTotalCost() == order.getTotalCost() && Arrays.equals(expectedOrder.getFurnitureBought(),order.getFurnitureBought(),(a,b)->a.id == b.id ?1:0) && Arrays.equals(expectedOrder.getNumOfComponents(),order.getNumOfComponents()) && 
+		expectedOrder.getNumOfFurniture() == order.getNumOfFurniture() && expectedOrder.getCategory().equals(order.getCategory()) && expectedOrder.getType().equals(order.getType()) )
+		{
+				finalverdict = true;
+		}
+		assertEquals("getCheapestOrder did not return the expected Order",true,finalverdict);
 		
 	}
 	
 	
 	@Test
-	//Test to make sure attemptOrder returns false when it gets an order it cannot fill
+	/*
+	 * Test of method attemptOrder of FurnitureOrder class
+	 * Test to ensure it returns false when an Order cannot be fullfilled. 
+	 * Gave the method an impossible order of 5 small filing cabinets, which is not possible given the data in the database. 
+	 * Expect that it returns false. Therefore, if it returns true, the test has failed.  
+	 */
+	//*********One of the tests that needs Original database as posted on D2L**********
 	public void test_attemptOrder()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Filing"),"Small",5);
 		Order order = null;
@@ -467,16 +533,27 @@ public class InventoryTest {
 		assertEquals("attemptOrder did not return the expected value",expectedvalue,realvalue);
 	}
 	@Test
-	//test to ensure when an order can be filled, all the appropriate items are removed from the database
+	/**
+	 * Test of method sendOrderToDatabase of FurnitureOrder class 
+	 * Testing to make sure that the desired  items are removed from the database. 
+	 * Chose an Order with only 1 combination that gives the cheapest price, so that we can predict the output. Therefore, this allows us to predict which items will be removed. 
+	 * One of the orders which fulfills this requirement is 1 standing desk, for which the cheapest price is  300 hundred dollars, made up of items D1927 and D2341, assuming a full database that matches 
+	 * the original inventory.sql found on D2L.
+	 */
+	//*********One of the tests that needs Original database as posted on D2L**********
 	public void test_sendOrderToDatabase()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		//Use the selectDesksByType method from  Inventory class  to find all the standing desks
+		//remove the first two entries from the ArrayList<Desk> expectedvalue, to simulate what selectDesksByType will return once sendOrderToDatabase has run
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		ArrayList<Desk> expectedvalue =  furnitureInventory.selectDesksByType("Standing");
 		expectedvalue.remove(0);
 		expectedvalue.remove(1);
 		
-		
+		//make the Order for 1 Standing  desk, and then call sendOrderToDatabase once the cheapest order has been found
+		//this should  remove D1927 and D2341 from the database
+		//as a result, when selectDesksByType("Standing") is called on the updated database, the first two entries should be removed. 
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Desk"),"Standing",1);
 		Order order = null;
 		request.attemptOrder(furnitureInventory);
@@ -484,6 +561,7 @@ public class InventoryTest {
 		request.sendOrderToDatabase(furnitureInventory);
 		ArrayList<Desk> realvalue = furnitureInventory.selectDesksByType("Standing");
 		furnitureInventory.close();
+		//compare the ArrayLists<Desk> realvalue and expected value. If they match, the test passes. If they dont match, the test fails .
 		assertEquals("sendOrderToDatabase did not remove the items from the database",true,Arrays.equals(expectedvalue.toArray(Furniture[]::new),realvalue.toArray(Furniture[]::new),( a, b)->a.id == b.id ?1:0));
 	}
 	
@@ -506,8 +584,8 @@ public class InventoryTest {
 		String expectedOutput = "Furniture Order Form\n" + 
 				"\n" + 
 				"Faculty name: Software Engineering\n" + 
-				"Contact: Joe Test\n" + 
-				"Date: 12/12/21\n" + 
+				"Contract: Joe Test\n" + 
+				"Date 12/12/21\n" + 
 				"\n" + 
 				"Original Request: Desk Lamp, 1\n" + 
 				"\n" + 
