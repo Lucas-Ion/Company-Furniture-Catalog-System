@@ -595,8 +595,8 @@ public class InventoryTest {
 		String expectedOutput = "Furniture Order Form\n" + 
 				"\n" + 
 				"Faculty name: Software Engineering\n" + 
-				"Contract: Joe Test\n" + 
-				"Date 12/12/21\n" + 
+				"Contact: Joe Test\n" + 
+				"Date: 12/12/21\n" + 
 				"\n" + 
 				"Original Request: Desk Lamp, 1\n" + 
 				"\n" + 
@@ -622,8 +622,8 @@ public class InventoryTest {
 		String expectedOutput = "Furniture Order Form\n" + 
 				"\n" + 
 				"Faculty name: Electrical Engineering\n" + 
-				"Contract: Michael Test\n" + 
-				"Date 06/12/21\n" + 
+				"Contact: Michael Test\n" + 
+				"Date: 06/12/21\n" + 
 				"\n" + 
 				"Original Request: Large Filing, 2\n" + 
 				"\n" + 
