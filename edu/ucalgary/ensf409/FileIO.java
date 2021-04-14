@@ -58,7 +58,7 @@ public class FileIO {
 		 Scanner scan = new Scanner(System.in);
 
 
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
 		furnitureInventory.initializeConnection();
 
 		
