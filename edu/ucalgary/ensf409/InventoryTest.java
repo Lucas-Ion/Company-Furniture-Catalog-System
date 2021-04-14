@@ -650,13 +650,6 @@ public class InventoryTest {
 	 */
 	public void test_FormatOutput_3()
 	{
-		
-		
-		
-		File file = new File("original.txt");
-		File file2 = new File("new.txt");
-		
-		
 		FileIO test = new FileIO();
 		test.setCat("Desk");
 		test.setType("Adjustable");
@@ -696,11 +689,78 @@ public class InventoryTest {
 	}
 	@Test
 	/**
-	 * 
+	 * Test to see if FormatOutput informs the user that an Order cannot be fulfilled in the expected format when the selected category is  Chair
 	 */
 	public void test_FormatOutput_5()
 	{
-		
+		FileIO test = new FileIO();
+		test.setCat("Chair");
+		test.setType("Mesh");
+		test.setQuantity(7);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		StringBuilder expectedOutput = new StringBuilder();
+		//String expectedOutput = 
+		expectedOutput.append("Order not possible\n") ;
+		expectedOutput.append("User Request: " + "Mesh" + " " + "Chair" + ", " + "7" + "\n"); 
+			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Chairs R Us, Furniture Goods, and Fine Office Supplies.\n");
+			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
+			
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
+	}
+	@Test
+	/**
+	 * Test to see if FormatOutput informs the user that an Order cannot be fulfilled in the expected format when the selected category is Filing
+	 */
+	public void test_FormatOutput_6()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Filing");
+		test.setType("Large");
+		test.setQuantity(8);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		StringBuilder expectedOutput = new StringBuilder();
+		//String expectedOutput = 
+		expectedOutput.append("Order not possible\n") ;
+		expectedOutput.append("User Request: " + "Large" + " " + "Filing" + ", " + "8" + "\n"); 
+			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.\n");
+			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
+			
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
+	}
+	@Test
+	/**
+	 * Test to see if FormatOutput informs the user that an Order cannot be fulfilled in the expected format when the selected category is Lamp
+	 */
+	public void test_FormatOutput_7()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Lamp");
+		test.setType("Study");
+		test.setQuantity(10);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		StringBuilder expectedOutput = new StringBuilder();
+		//String expectedOutput = 
+		expectedOutput.append("Order not possible\n") ;
+		expectedOutput.append("User Request: " + "Study" + " " + "Lamp" + ", " + "10" + "\n"); 
+			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Chairs R Us, Furniture Goods, and Fine Office Supplies.\n");
+			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
+			
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
 	}
 	@Test
 	/*
