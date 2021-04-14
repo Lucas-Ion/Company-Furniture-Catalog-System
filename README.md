@@ -1,4 +1,4 @@
-# ENSF409Project
+# ENSF409 Final Project
 
 On a Windows computer, this program is run with the following commands:
 
