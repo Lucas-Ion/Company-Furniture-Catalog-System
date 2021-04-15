@@ -5,7 +5,7 @@ import java.io.*;
 
 /**
  * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  */
 

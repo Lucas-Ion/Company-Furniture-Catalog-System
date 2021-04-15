@@ -18,7 +18,7 @@ import org.junit.Test;
 
 /**
  * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
- * @version 1.0
+ * @version 2.1
  * @since 1.0
  */
 //Please replace 'SQLusername' and 'SQLpassword' to match the username and password used to login to your local SQL server.
