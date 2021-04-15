@@ -9,6 +9,13 @@ import java.io.*;
  * @since 1.0
  */
 
+
+
+/**
+ * The FileIO class handles the user input passed to it by main, and then returns the 
+ * relevant output file in .txt form based on the current database values
+ */
+
 public class FileIO {
     
 
@@ -29,12 +36,19 @@ public class FileIO {
 	String lampError;
 
     
-    
+    /**
+	 * Default constructor, does nothing
+	 */
 
     public FileIO(){
     
     }
 
+	/**
+	 * 
+	 * @param cat @param setType @param setQuantity @param setContact @param setFacultyName @param setDate
+	 * are the standard setters for this function, to populate the FileIO object
+	 */
     public void setCat(String cat){
         this.cat = cat;
     }
@@ -55,6 +69,12 @@ public class FileIO {
     }
 
 
+	/**
+	 * A public method with creates a return string based on the database and FileIO varibles, and returns a string
+	 * with the formatted output to be written to the .txt file. Accepts no arguments
+	 * @return String
+	 */
+
 	public String formatOutput(){
 
          StringBuilder output = new StringBuilder();
@@ -62,7 +82,7 @@ public class FileIO {
 		 Scanner scan = new Scanner(System.in);
 
 
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
 		furnitureInventory.initializeConnection();
 
 		
@@ -133,8 +153,12 @@ public class FileIO {
 				request.sendOrderToDatabase(furnitureInventory);
 
 			}
+			/**
+			 * If the order cannot be fulfilled, it informs the user of avaliable manufacturers
+			 */
 			else{
 
+				
 				
 				System.out.println("Order not possible");
 				//System.out.println("Noted on order sheet");
@@ -160,11 +184,6 @@ public class FileIO {
 				}
 
 
-
-				// ArrayList<String> manuPrint = furnitureInventory.findManufacturers("Desk");
-				// for(int i = 0; i < manuPrint.size(); i++){
-				// 	System.out.println(manuPrint.get(i));
-				// }
 			
 			}
 			

@@ -3,11 +3,6 @@ package edu.ucalgary.ensf409;
 import java.util.*;
 import java.util.regex.*;
 
-import jdk.dynalink.beans.StaticClass;
-
-import java.text.*;
-
-
 import java.io.*;
 
 /**
@@ -17,7 +12,11 @@ import java.io.*;
  */
 
  /**
-  * 
+  * Runs the furniture inventory UI
+  * It does this by creating a FileIO object and passing in key information that is collected thorugh the main
+  * method. The key information that is then passed to the FileIO object is the category, type and quantity
+  * The main class then uses a Print Writer object to write the result of formatOutput to the .txt file: output
+  *
   */
 
 public class Main {
@@ -26,6 +25,10 @@ public class Main {
     static FileWriter fw;
     static PrintWriter pw;
 
+	/**
+	 * The main method of class Main. 
+	 * Accepts no @param args. Computes the File I/O for the UI
+	 */
 	public static void main(String[] args) {
 
 		StringBuilder output = new StringBuilder();
@@ -88,8 +91,11 @@ try {
 
 	
 
+	/**
+	 * Collecting input for the Faculty, and error checking to ensure
+	 * the input is valid
+	 */
 	
-
 
 	System.out.print("What is your faculty: ");
 	facultyName = scan.nextLine();
@@ -116,6 +122,14 @@ try {
 		}
 
 	}
+
+
+	/**
+	 * Collecting input for the first and last name, and error checking to ensure
+	 * the input is valid
+	 */
+
+
 	System.out.println();
 	System.out.print("What is your first and last name: ");
 	contact = scan.nextLine();
@@ -143,6 +157,10 @@ try {
 
 
 
+	/**
+	 * Collecting input for the date and error checking to ensure
+	 * the input is valid
+	 */
 
 
 	System.out.println();
@@ -171,7 +189,9 @@ try {
 		}
 	}
 
-	
+	/**
+	 * Printing loading stars
+	 */
 
 	System.out.println();
 	System.out.println("                       Processing                          ");
@@ -202,7 +222,9 @@ try {
 	}
 	System.out.println();
 
-	
+		/**
+		 * Displaying GUI to select categories
+		 */
 
 
 		System.out.println("--------------------------------------------------------");
@@ -230,6 +252,12 @@ try {
 		
 		String category = scan.nextLine();
 
+
+		/**
+		 * Collecting input for the category type, and error checking to ensure
+		 * the input is valid
+	 	*/
+
 		Pattern invalidCheck = Pattern.compile("^([1-4])$");
 		Pattern quantityCheck = Pattern.compile("^[1-9][0-9]*$");
 		Matcher invalidNum = invalidCheck.matcher(category);
@@ -252,15 +280,6 @@ try {
 		int catSelect = Integer.parseInt(category);
 	
 		
-		// if(catSelect != 1 && catSelect != 2 && catSelect != 3 && catSelect != 4){
-		// while(true){
-		// 	System.out.println("That was an invalid input please enter a number that is either 1,2,3 or 4");
-		// 	catSelect = Integer.parseInt(scan.nextLine());
-		// 	if(catSelect == 1 || catSelect == 2 || catSelect == 3 || catSelect == 4){
-		// 		break;
-		// 	}
-		// }
-		// }
 
 		if(catSelect == 1){
 			cat = "Chair";
@@ -281,6 +300,10 @@ try {
 		System.out.println();
 		System.out.println();
 		System.out.println();
+
+		/**
+		 * GUI to select chair type
+		 */
 
 		if(catSelect == 1){
 		System.out.println("--------------------------------------------------------");
@@ -303,7 +326,10 @@ try {
 
 
 
-	
+	/**
+	 * Collecting input for the chair type, and error checking to ensure
+	 * the input is valid
+	 */
 
 
 		String typeString = scan.nextLine();
@@ -363,6 +389,10 @@ try {
 			quan = scan.nextLine();
 
 
+			/**
+	 		* Collecting input for the chair quantity, and error checking to ensure
+	 		* the input is valid
+	 		*/
 
 			invalidNum = quantityCheck.matcher(quan);
 
@@ -386,6 +416,15 @@ try {
 			
 		}
 		else if(catSelect == 2){
+
+
+			/**
+			 * Collecting input for the Desk type, and error checking to ensure
+			 * the input is valid
+			 */
+
+
+
 			System.out.println("--------------------------------------------------------");
 			System.out.println("|                                                      |");
 			System.out.println("|                                                      |");
@@ -405,6 +444,11 @@ try {
 			System.out.println();
 
 
+
+		/**
+	 	* Collecting input for the Desk type, and error checking to ensure
+	 	* the input is valid
+	 	*/
 
 
 		String typeString = scan.nextLine();
@@ -454,6 +498,12 @@ try {
 			}
 			
 			
+			/**
+	 		* Collecting input for the Desk quantity, and error checking to ensure
+	 		* the input is valid
+	 		*/
+
+
 			quan = scan.nextLine();
 
 			invalidNum = quantityCheck.matcher(quan);
@@ -477,6 +527,13 @@ try {
 
 			}
 			else if(catSelect == 3){
+
+
+				/**
+	 			*Collecting input for the Filing, and error checking to ensure
+	 			* the input is valid
+	 			*/
+
 				System.out.println("--------------------------------------------------------");
 				System.out.println("|                                                      |");
 				System.out.println("|                                                      |");
@@ -499,6 +556,13 @@ try {
 				Pattern invalidFiling = Pattern.compile("^([1-3])$");
 				invalidNum = invalidFiling.matcher(typeString);
 	
+
+
+			/**
+	 		* Collecting input for the Filing type, and error checking to ensure
+	 		* the input is valid
+	 		*/	
+
 
 		if(invalidNum.find()== false){
 			System.out.println("You did not enter numbers, please enter either 1,2,or 3");
@@ -543,6 +607,12 @@ try {
 				}
 				
 				
+				/**
+	 			* Collecting input for the Filing Quantity, and error checking to ensure
+	 			* the input is valid
+	 			*/
+
+
 			quan = scan.nextLine();
 
 			invalidNum = quantityCheck.matcher(quan);
@@ -570,6 +640,11 @@ try {
 			
 			}
 				else if(catSelect == 4){
+
+					/**
+	 				* Collecting input for the Lamp, and error checking to ensure
+	 				* the input is valid
+	 				*/
 					System.out.println("--------------------------------------------------------");
 					System.out.println("|                                                      |");
 					System.out.println("|                                                      |");
@@ -594,6 +669,12 @@ try {
 					Pattern invalidLamp = Pattern.compile("^([1-3])$");
 					invalidNum = invalidLamp.matcher(typeString);
 					
+
+			/**
+	 		* Collecting input for the Lamp Type, and error checking to ensure
+	 		* the input is valid
+	 		*/
+
 
 			if(invalidNum.find()== false){
 			System.out.println("You did not enter numbers, please enter either 1,2, or 3");
@@ -636,6 +717,10 @@ try {
 					type = "Swing Arm";
 					}
 					
+					/**
+	 				* Collecting input for the Lamp Type, and error checking to ensure
+	 				* the input is valid
+	 				*/
 					
 					quan = scan.nextLine();
 
@@ -661,7 +746,9 @@ try {
 
 					}
 			
-		
+		/**
+		 * Setting the relevant values of the FileIO object
+		 */
 	
 		fileIO.setCat(cat);
 		fileIO.setType(type);
@@ -669,6 +756,10 @@ try {
 		fileIO.setContact(contact);
 		fileIO.setDate(date);
 		fileIO.setFacultyName(facultyName);
+
+		/**
+		 * If the file is not empty, write to the file and close the print writer object
+		 */
 	
 		String out = fileIO.formatOutput();
 		System.out.println(out);

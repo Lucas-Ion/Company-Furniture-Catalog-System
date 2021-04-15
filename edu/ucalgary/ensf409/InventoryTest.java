@@ -27,7 +27,7 @@ import org.junit.Test;
 //also many of our tests have outputs that are predicted based on the database inventory.sql that was posted on D2l
 //these tests are marked with the idenfitier : //*********One of the tests that needs Original database as posted on D2L**********
 public class InventoryTest {
-	private String SQLusername = "ensf409";
+	private String SQLusername = "lucas";
 	private String SQLpassword = "ensf409";
 	private  PrintStream standardOut = System.out;
 	private  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -532,7 +532,7 @@ public class InventoryTest {
 	//*********One of the tests that needs Original database as posted on D2L**********
 	public void test_attemptOrder_false()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Filing"),"Small",5);
 		Order order = null;
@@ -548,7 +548,7 @@ public class InventoryTest {
 	 */
 	public void test_attemptOrder_true()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Lamp"),"Desk",1);
 		Order order = null;
