@@ -1,5 +1,9 @@
 # ENSF409 Final Project
 
+//IMPORTANT NOTE BEFORE RUNNING ANYTHING//
+
+In Main.java on line 44, you will need to change the database URL, username, and password to match that on your computer. This also needs to be done in FileIO.java on line 65.
+
 //MAIN PROGRAM//
 
 On a Windows computer, this program is run with the following commands:
@@ -30,7 +34,3 @@ In InventoryTest.java, please replace 'SQLusername' and 'SQLpassword' on lines 3
 Please also refresh your database 'inventory.sql' before running these tests as there are some tests which remove items from the database. Failure to do so would result in errors as the tests expect a full database. 
 Also, many of our tests have outputs that are predicted based on the database inventory.sql that was posted on D2l
 These tests are marked with the idenfitier : //*********One of the tests that needs Original database as posted on D2L**********
-
-//DATABASE NOTES//
-
-In Main.java on line 44, you will need to change the database URL, username, and password to match that on your computer. This also needs to be done in FileIO.java on line 65.
