@@ -1,4 +1,6 @@
-# ENSF409Project
+# ENSF409 Final Project
+
+//MAIN PROGRAM//
 
 On a Windows computer, this program is run with the following commands:
 
@@ -9,6 +11,10 @@ or on a Mac:
 
     javac -cp .:lib/mysql-connector-java-8.0.23.jar:. edu/ucalgary/ensf409/Main.java
     java -cp .:lib/mysql-connector-java-8.0.23.jar:. edu/ucalgary/ensf409/Main
+
+**IMPORTANT NOTE: When entering inputs for the date, no dates before 2021 will be accepted by the program!
+
+//UNIT TESTING//  
 
 To run all unit tests through the Windows command line, the following commands are used:
 

@@ -1,19 +1,30 @@
 package edu.ucalgary.ensf409;
 
 import java.util.*;
+import java.util.regex.*;
+
+import jdk.dynalink.beans.StaticClass;
+
+import java.text.*;
+
+
 import java.io.*;
 
 /**
  * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  */
 
+ /**
+  * 
+  */
+
 public class Main {
 	
-	public static File outFile;
-    public static FileWriter fw;
-    public static PrintWriter pw;
+	static File outFile;
+    static FileWriter fw;
+    static PrintWriter pw;
 
 	public static void main(String[] args) {
 
@@ -75,14 +86,93 @@ try {
 	String contact = null;
 	String date;
 
+	
+
+	
+
+
 	System.out.print("What is your faculty: ");
 	facultyName = scan.nextLine();
+	Pattern nameCheck = Pattern.compile("^([A-z]+|[A-z]\s|[A-z]|[&|and|-]+\s[A-z][&]*)+$");
+	Matcher invalidName = nameCheck.matcher(facultyName);
+
+	if(invalidName.find()== false){
+		System.out.println("You did not enter a valid name, please enter name");
+		facultyName = scan.nextLine();
+		invalidName = nameCheck.matcher(facultyName);
+		while(true){
+			if(invalidName.matches() == false){
+			System.out.println("You did not enter a valid name, please enter a name");
+			facultyName = scan.nextLine();
+			invalidName = nameCheck.matcher(facultyName);
+			if(invalidName.matches()==true){
+				break;
+			}
+			}
+			else{
+				break;
+			}
+			
+		}
+
+	}
 	System.out.println();
 	System.out.print("What is your first and last name: ");
 	contact = scan.nextLine();
+	Pattern humanNameCheck = Pattern.compile("^([A-Z][A-z.,\\-']*\\s[A-Z][A-z,.\\-']*)$");
+	Matcher invalidHuman = humanNameCheck.matcher(contact);
+	
+	if(invalidHuman.find()== false){
+		System.out.println("You did not enter a valid name, please enter a name that starts with a Capital for the first and last name");
+		contact = scan.nextLine();
+		invalidHuman = humanNameCheck.matcher(contact);
+		while(true){
+			if(invalidHuman.matches() == false){
+			System.out.println("You did not enter a valid name, please enter a name that starts with a Capital for the first and last name");
+			contact = scan.nextLine();
+			invalidHuman = humanNameCheck.matcher(contact);
+			}
+			else{
+				break;
+			}
+			
+		}
+
+	}
+
+
+
+
+
+
 	System.out.println();
 	System.out.print("What is date you wish to place this order on (MM/DD/YYYY): ");
-	date = scan.nextLine();
+	date = scan.nextLine();	
+
+	Pattern datePattern = Pattern.compile("^((?:[0][1-9]|[0-1][0-2])\\/(?:[0][1-9]|[3][0-1]|[0-2][1-9])\\/(?:[2][0-9][2-9][1-9]))$");
+
+	Matcher invalidDate = datePattern.matcher(date);
+
+	
+	if(invalidDate.find()== false){
+		System.out.println("You did not enter a valid date, please enter a date that matches the format MM/DD/YYYY");
+		date = scan.nextLine();
+		invalidDate = datePattern.matcher(date);
+		while(true){
+			if(invalidDate.matches() == false){
+			System.out.println("You did not enter a valid date, please enter a date that matches the format MM/DD/YYYY");
+			date = scan.nextLine();
+			invalidDate = datePattern.matcher(date);
+			}
+			else{
+				break;
+			}
+			
+		}
+	}
+
+	
+
 	System.out.println();
 	System.out.println("                       Processing                          ");
 	for(int i = 0; i < 55; i++){
@@ -135,18 +225,42 @@ try {
 		
 		String cat = null;
 		String type = null;
+		String quan;
 		int quantity = 0;
-		int catSelect = Integer.parseInt(scan.nextLine());
 		
-		if(catSelect != 1 && catSelect != 2 && catSelect != 3 && catSelect != 4){
-		while(true){
-			System.out.println("That was an invalid input please try again!");
-			catSelect = Integer.parseInt(scan.nextLine());
-			if(catSelect == 1 || catSelect == 2 || catSelect == 3 || catSelect == 4){
-				break;
+		String category = scan.nextLine();
+
+		Pattern invalidCheck = Pattern.compile("^([1-4])$");
+		Pattern quantityCheck = Pattern.compile("^[1-9][0-9]*$");
+		Matcher invalidNum = invalidCheck.matcher(category);
+
+		if(invalidNum.find()== false){
+			System.out.println("You did not enter numbers, please enter either 1,2,3 or 4");
+			category = scan.nextLine();
+			invalidNum = invalidCheck.matcher(category);
+			while(true){
+				System.out.println("You did not enter numbers, please enter either 1,2,3 or 4");
+				category = scan.nextLine();
+				invalidNum = invalidCheck.matcher(category);
+				if(invalidNum.find()== true){
+					break;
+				}
 			}
+
 		}
-		}
+
+		int catSelect = Integer.parseInt(category);
+	
+		
+		// if(catSelect != 1 && catSelect != 2 && catSelect != 3 && catSelect != 4){
+		// while(true){
+		// 	System.out.println("That was an invalid input please enter a number that is either 1,2,3 or 4");
+		// 	catSelect = Integer.parseInt(scan.nextLine());
+		// 	if(catSelect == 1 || catSelect == 2 || catSelect == 3 || catSelect == 4){
+		// 		break;
+		// 	}
+		// }
+		// }
 
 		if(catSelect == 1){
 			cat = "Chair";
@@ -186,7 +300,33 @@ try {
 		System.out.println("|                                                      |");
 		System.out.println("--------------------------------------------------------");
 		System.out.println();
-		int typeSelect = Integer.parseInt(scan.nextLine());
+
+
+
+	
+
+
+		String typeString = scan.nextLine();
+		Pattern invalidChair = Pattern.compile("^([1-5])$");
+		invalidNum = invalidChair.matcher(typeString);
+		//invalidNum = invalidCheck.matcher(typeString);
+
+		if(invalidNum.find()== false){
+			System.out.println("You did not enter numbers, please enter either 1,2,3,4 or 5");
+			typeString = scan.nextLine();
+			invalidNum = invalidChair.matcher(typeString);
+			while(true){
+				System.out.println("You did not enter numbers, please enter either 1,2,3,4  or 5");
+				typeString = scan.nextLine();
+				invalidNum = invalidChair.matcher(typeString);
+				if(invalidNum.find()== true){
+					break;
+				}
+			}
+
+		}
+
+		int typeSelect = Integer.parseInt(typeString);
 
 		if(typeSelect != 1 && typeSelect != 2 && typeSelect != 3 && typeSelect != 4 && typeSelect !=5){
 			while(true){
@@ -220,7 +360,28 @@ try {
 			type = "Task";
 			}
 
-			quantity = Integer.parseInt(scan.nextLine());
+			quan = scan.nextLine();
+
+
+
+			invalidNum = quantityCheck.matcher(quan);
+
+			if(invalidNum.find()== false){
+				System.out.println("You did not enter numbers, please enter a positive integer");
+				quan = scan.nextLine();
+				invalidNum = quantityCheck.matcher(quan);
+				while(true){
+					System.out.println("You did not enter numbers, please enter a positive integer");
+					quan = scan.nextLine();
+					invalidNum = quantityCheck.matcher(quan);
+					if(invalidNum.find()== true){
+						break;
+					}
+				}
+	
+			}
+
+			quantity = Integer.parseInt(quan);
 			
 			
 		}
@@ -242,12 +403,37 @@ try {
 			System.out.println("|                                                      |");
 			System.out.println("--------------------------------------------------------");
 			System.out.println();
-			int typeSelect = Integer.parseInt(scan.nextLine());
+
+
+
+
+		String typeString = scan.nextLine();
+		Pattern invalidDesk = Pattern.compile("^([1-3])$");
+		invalidNum = invalidDesk.matcher(typeString);
+	
+
+		if(invalidNum.find()== false){
+			System.out.println("You did not enter numbers, please enter either 1,2, or 3");
+			typeString = scan.nextLine();
+			invalidNum = invalidDesk.matcher(typeString);
+			while(true){
+				System.out.println("You did not enter numbers, please enter either 1,2, or 3");
+				typeString = scan.nextLine();
+				invalidNum = invalidDesk.matcher(typeString);
+				if(invalidNum.find()== true){
+					break;
+				}
+			}
+
+		}
+
+
+			int typeSelect = Integer.parseInt(typeString);
 	
 			if(typeSelect != 1 && typeSelect != 2 && typeSelect != 3 ){
 				while(true){
 					System.out.println("That was an invalid input please try again!");
-					catSelect = Integer.parseInt(scan.nextLine());
+					typeSelect = Integer.parseInt(scan.nextLine());
 					if(typeSelect == 1 ||typeSelect == 2 || typeSelect == 3){
 						break;
 					}
@@ -268,7 +454,27 @@ try {
 			}
 			
 			
-			quantity = Integer.parseInt(scan.nextLine());
+			quan = scan.nextLine();
+
+			invalidNum = quantityCheck.matcher(quan);
+
+			if(invalidNum.find()== false){
+				System.out.println("You did not enter numbers, please enter a positive integer");
+				quan = scan.nextLine();
+				invalidNum = quantityCheck.matcher(quan);
+				while(true){
+					System.out.println("You did not enter numbers, please enter a positive integer");
+					quan = scan.nextLine();
+					invalidNum = quantityCheck.matcher(quan);
+					if(invalidNum.find()== true){
+						break;
+					}
+				}
+	
+			}
+
+			 quantity = Integer.parseInt(quan);
+
 			}
 			else if(catSelect == 3){
 				System.out.println("--------------------------------------------------------");
@@ -288,12 +494,35 @@ try {
 				System.out.println("|                                                      |");
 				System.out.println("--------------------------------------------------------");
 				System.out.println();
-				int typeSelect = Integer.parseInt(scan.nextLine());
+
+				String typeString = scan.nextLine();
+				Pattern invalidFiling = Pattern.compile("^([1-3])$");
+				invalidNum = invalidFiling.matcher(typeString);
+	
+
+		if(invalidNum.find()== false){
+			System.out.println("You did not enter numbers, please enter either 1,2,or 3");
+			typeString = scan.nextLine();
+			invalidNum = invalidFiling.matcher(typeString);
+			while(true){
+				System.out.println("You did not enter numbers, please enter either 1,2, or 3");
+				typeString = scan.nextLine();
+				invalidNum = invalidFiling.matcher(typeString);
+				if(invalidNum.find()== true){
+					break;
+				}
+			}
+
+		}
+
+
+
+				int typeSelect = Integer.parseInt(typeString);
 		
 				if(typeSelect != 1 && typeSelect != 2 && typeSelect != 3 ){
 					while(true){
 						System.out.println("That was an invalid input please try again!");
-						catSelect = Integer.parseInt(scan.nextLine());
+						typeSelect = Integer.parseInt(scan.nextLine());
 						if(typeSelect == 1 ||typeSelect == 2 || typeSelect == 3){
 							break;
 						}
@@ -314,8 +543,32 @@ try {
 				}
 				
 				
-			 quantity = Integer.parseInt(scan.nextLine());
+			quan = scan.nextLine();
+
+			invalidNum = quantityCheck.matcher(quan);
+
+			if(invalidNum.find()== false){
+				System.out.println("You did not enter numbers, please enter a positive integer");
+				quan = scan.nextLine();
+				invalidNum = quantityCheck.matcher(quan);
+				while(true){
+					System.out.println("You did not enter numbers, please enter a positive integer");
+					quan = scan.nextLine();
+					invalidNum = quantityCheck.matcher(quan);
+					if(invalidNum.find()== true){
+						break;
+					}
+
 				}
+	
+			}
+
+
+			 quantity = Integer.parseInt(quan);
+				
+	
+			
+			}
 				else if(catSelect == 4){
 					System.out.println("--------------------------------------------------------");
 					System.out.println("|                                                      |");
@@ -334,12 +587,36 @@ try {
 					System.out.println("|                                                      |");
 					System.out.println("--------------------------------------------------------");
 					System.out.println();
-					int typeSelect = Integer.parseInt(scan.nextLine());
+
+
+
+					String typeString = scan.nextLine();
+					Pattern invalidLamp = Pattern.compile("^([1-3])$");
+					invalidNum = invalidLamp.matcher(typeString);
+					
+
+			if(invalidNum.find()== false){
+			System.out.println("You did not enter numbers, please enter either 1,2, or 3");
+			typeString = scan.nextLine();
+			invalidNum = invalidLamp.matcher(typeString);
+			while(true){
+				System.out.println("You did not enter numbers, please enter either 1,2,or 3");
+				typeString = scan.nextLine();
+				invalidNum = invalidLamp.matcher(typeString);
+				if(invalidNum.find()== true){
+					break;
+				}
+			}
+
+		}
+
+
+					int typeSelect = Integer.parseInt(typeString);
 			
 					if(typeSelect != 1 && typeSelect != 2 && typeSelect != 3 ){
 						while(true){
 							System.out.println("That was an invalid input please try again!");
-							catSelect = Integer.parseInt(scan.nextLine());
+							typeSelect = Integer.parseInt(scan.nextLine());
 							if(typeSelect == 1 ||typeSelect == 2 || typeSelect == 3){
 								break;
 							}
@@ -360,7 +637,28 @@ try {
 					}
 					
 					
-				 quantity = Integer.parseInt(scan.nextLine());
+					quan = scan.nextLine();
+
+					invalidNum = quantityCheck.matcher(quan);
+		
+					if(invalidNum.find()== false){
+						System.out.println("You did not enter numbers, please enter a positive integer");
+						quan = scan.nextLine();
+						invalidNum = quantityCheck.matcher(quan);
+						while(true){
+							System.out.println("You did not enter numbers, please enter a positive integer");
+							quan = scan.nextLine();
+							invalidNum = quantityCheck.matcher(quan);
+							if(invalidNum.find()== true){
+								break;
+							}
+						}
+			
+					}
+		
+					
+					 quantity = Integer.parseInt(quan);
+
 					}
 			
 		
@@ -374,10 +672,15 @@ try {
 	
 		String out = fileIO.formatOutput();
 		System.out.println(out);
+		if(!(out.equals(""))){
+			System.out.println("Output results are also noted on the order form: output.txt in the working directory");
+		}
 		pw.print(out);
 		
 		pw.close();
+		
 
 	}
-	
+
+
 }

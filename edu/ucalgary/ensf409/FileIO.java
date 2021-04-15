@@ -5,7 +5,7 @@ import java.io.*;
 
 /**
  * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
- * @version 1.0
+ * @version 1.4
  * @since 1.0
  */
 
@@ -23,6 +23,10 @@ public class FileIO {
     private  String date = null;
     private  String facultyName = null;
     private String contact = null;
+	String deskError;
+	String chairError;
+	String filingError;
+	String lampError;
 
     
     
@@ -58,7 +62,7 @@ public class FileIO {
 		 Scanner scan = new Scanner(System.in);
 
 
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 		furnitureInventory.initializeConnection();
 
 		
@@ -136,14 +140,17 @@ public class FileIO {
 				//System.out.println("Noted on order sheet");
 				System.out.println("User Request: " + type + " " + cat + ", " + quantity);	
 				if(cat == "Desk"){
-					System.out.println("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.");
+					deskError = "Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.";
+					System.out.println(deskError);
 				}
 				else if(cat =="Chair"){
-					System.out.println("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Chairs R Us, Furniture Goods, and Fine Office Supplies.");
+					chairError = "Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Chairs R Us, Furniture Goods, and Fine Office Supplies.";
+					System.out.println(chairError);
 
 				}
 				
 				else if(cat =="Filing"){
+					filingError = "Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.";
 					System.out.println("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.");
 
 				}
@@ -165,6 +172,7 @@ public class FileIO {
 		furnitureInventory.close();
 		//pw.close();
 
+		
         return output.toString();
 	}
 
