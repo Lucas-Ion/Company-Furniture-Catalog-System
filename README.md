@@ -2,7 +2,7 @@
 
 //IMPORTANT NOTE BEFORE RUNNING ANYTHING//
 
-In Main.java on line 44, you will need to change the database URL, username, and password to match that on your computer. This also needs to be done in FileIO.java on line 65.
+In Main.java on line 52, you will need to change the database URL, username, and password to match that on your computer. This also needs to be done in FileIO.java on line 85.
 
 //MAIN PROGRAM//
 
