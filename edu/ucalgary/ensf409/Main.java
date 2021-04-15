@@ -98,7 +98,7 @@ try {
 
 	System.out.print("What is your faculty: ");
 	facultyName = scan.nextLine();
-	Pattern nameCheck = Pattern.compile("^([A-z]+|[A-z]\s|[A-z]|[&|and|-]+\s[A-z][&]*)+$");
+	Pattern nameCheck = Pattern.compile("^([A-z]+|[A-z]\\s|[A-z]|[&|and|-]+\\s[A-z][&]*)+$");
 	Matcher invalidName = nameCheck.matcher(facultyName);
 
 	if(invalidName.find()== false){
