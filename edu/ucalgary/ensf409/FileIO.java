@@ -5,7 +5,7 @@ import java.io.*;
 
 /**
  * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
- * @version 1.0
+ * @version 1.4
  * @since 1.0
  */
 
@@ -62,7 +62,7 @@ public class FileIO {
 		 Scanner scan = new Scanner(System.in);
 
 
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "lucas", "ensf409");
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", "ensf409", "ensf409");
 		furnitureInventory.initializeConnection();
 
 		

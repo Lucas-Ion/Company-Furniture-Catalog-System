@@ -18,14 +18,16 @@ import org.junit.Test;
 
 /**
  * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
- * @version 1.0
+ * @version 2.1
  * @since 1.0
  */
 //Please replace 'SQLusername' and 'SQLpassword' to match the username and password used to login to your local SQL server.
 //Please also refresh your database 'inventory.sql' before running these tests as there are some tests which remove items from the database. Failure to do so would result in errors as the tests
 //expect a full database. 
+//also many of our tests have outputs that are predicted based on the database inventory.sql that was posted on D2l
+//these tests are marked with the idenfitier : //*********One of the tests that needs Original database as posted on D2L**********
 public class InventoryTest {
-	private String SQLusername = "lucas";
+	private String SQLusername = "ensf409";
 	private String SQLpassword = "ensf409";
 	private  PrintStream standardOut = System.out;
 	private  ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -528,17 +530,34 @@ public class InventoryTest {
 	 * Expect that it returns false. Therefore, if it returns true, the test has failed.  
 	 */
 	//*********One of the tests that needs Original database as posted on D2L**********
-	public void test_attemptOrder()
+	public void test_attemptOrder_false()
 	{
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Filing"),"Small",5);
 		Order order = null;
 		boolean realvalue = request.attemptOrder(furnitureInventory);
 		boolean expectedvalue = false;
 		furnitureInventory.close();
-		assertEquals("attemptOrder did not return the expected value",expectedvalue,realvalue);
+		assertEquals("attemptOrder_false did not return the expected value",expectedvalue,realvalue);
 	}
+	@Test
+	/*
+	 * Test of method attemptOrder of FurnitureOrder class
+	 * Test to ensure it returns true when an Order can be fulfilled, in this case, 1 desk lamps
+	 */
+	public void test_attemptOrder_true()
+	{
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
+		furnitureInventory.initializeConnection();
+		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Lamp"),"Desk",1);
+		Order order = null;
+		boolean realvalue = request.attemptOrder(furnitureInventory);
+		boolean expectedvalue = true;
+		furnitureInventory.close();
+		assertEquals("attemptOrder_true did not return the expected value",expectedvalue,realvalue);
+	}
+	
 	@Test
 	/**
 	 * Test of method sendOrderToDatabase of FurnitureOrder class 
@@ -608,7 +627,7 @@ public class InventoryTest {
 	}
 	@Test
 	/**
-	 * Testing FormatOutput in a similar fashion to FormatOutput2 except that instead of ordering 1 item of type Lamp, we will order 2  Large Filing cabinets
+	 * Testing FormatOutput in a similar fashion to FormatOutput1  except that instead of ordering 1 item of type Lamp, we will order 2  Large Filing cabinets
 	 */
 	public void test_FormatOutput_2()
 	{
@@ -650,13 +669,6 @@ public class InventoryTest {
 	 */
 	public void test_FormatOutput_3()
 	{
-		
-		
-		
-		File file = new File("original.txt");
-		File file2 = new File("new.txt");
-		
-		
 		FileIO test = new FileIO();
 		test.setCat("Desk");
 		test.setType("Adjustable");
@@ -671,8 +683,10 @@ public class InventoryTest {
 		expectedOutput.append("User Request: " + "Adjustable" + " " + "Desk" + ", " + "6" + "\n"); 
 			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.\n");
 			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
 			
-		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expectedOutput.toString().trim(), outputStream.toString().trim());
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
 		
 	}
 	@Test
@@ -692,10 +706,84 @@ public class InventoryTest {
 		String expectedOutput = "Not a category";
 		assertEquals("test_FormatOutput_4 did not print the expected message to System.out",expectedOutput,outputStream.toString().trim());
 	}
-	
+	@Test
+	/**
+	 * Test to see if FormatOutput informs the user that an Order cannot be fulfilled in the expected format when the selected category is  Chair
+	 */
+	public void test_FormatOutput_5()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Chair");
+		test.setType("Mesh");
+		test.setQuantity(7);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		StringBuilder expectedOutput = new StringBuilder();
+		//String expectedOutput = 
+		expectedOutput.append("Order not possible\n") ;
+		expectedOutput.append("User Request: " + "Mesh" + " " + "Chair" + ", " + "7" + "\n"); 
+			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Chairs R Us, Furniture Goods, and Fine Office Supplies.\n");
+			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
+			
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
+	}
+	@Test
+	/**
+	 * Test to see if FormatOutput informs the user that an Order cannot be fulfilled in the expected format when the selected category is Filing
+	 */
+	public void test_FormatOutput_6()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Filing");
+		test.setType("Large");
+		test.setQuantity(8);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		StringBuilder expectedOutput = new StringBuilder();
+		//String expectedOutput = 
+		expectedOutput.append("Order not possible\n") ;
+		expectedOutput.append("User Request: " + "Large" + " " + "Filing" + ", " + "8" + "\n"); 
+			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Office Furnishings, Furniture Goods, and Fine Office Supplies.\n");
+			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
+			
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
+	}
+	@Test
+	/**
+	 * Test to see if FormatOutput informs the user that an Order cannot be fulfilled in the expected format when the selected category is Lamp
+	 */
+	public void test_FormatOutput_7()
+	{
+		FileIO test = new FileIO();
+		test.setCat("Lamp");
+		test.setType("Study");
+		test.setQuantity(10);
+		test.setDate("06/03/21");
+		test.setContact("Michael Test");
+		test.setFacultyName("Electrical Engineering");
+		test.formatOutput();
+		StringBuilder expectedOutput = new StringBuilder();
+		//String expectedOutput = 
+		expectedOutput.append("Order not possible\n") ;
+		expectedOutput.append("User Request: " + "Study" + " " + "Lamp" + ", " + "10" + "\n"); 
+			expectedOutput.append("Order cannot be fulfilled based on current inventory. Suggested manufacturers are Chairs R Us, Furniture Goods, and Fine Office Supplies.\n");
+			expectedOutput.append("\n");
+			String expecout = expectedOutput.toString();
+			expecout = expecout.replaceAll("\\r", "");
+			
+		assertEquals("test_FormatOutput_3 did not print the expected message to System.out", expecout.trim(), outputStream.toString().trim().replaceAll("\\r", ""));
+	}
 	@Test
 	/*
-	 * 
+	 *  Testing getter for enum
 	 */
 	public void test_getCategory_enum()
 	{

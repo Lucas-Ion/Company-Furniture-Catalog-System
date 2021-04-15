@@ -11,9 +11,8 @@ import java.text.*;
 import java.io.*;
 
 /**
- * @author Colton Giesbrecht <a href=
- *         "mailto:colton.giesbrecht1@ucalgary.ca">colton.giesbrecht@ucalgary.ca</a>
- * @version 1.0
+ * @author Athul Rajagopal, Lucas Ion, Colton Giesbrecht, Amrit Mahendrarajah
+ * @version 2.0
  * @since 1.0
  */
 
