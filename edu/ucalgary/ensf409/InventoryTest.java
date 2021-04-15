@@ -573,7 +573,7 @@ public class InventoryTest {
 	// *********One of the tests that needs Original database as posted on
 	// D2L**********
 	public void test_attemptOrder_false() {
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Filing"), "Small", 5);
 		Order order = null;
@@ -589,7 +589,7 @@ public class InventoryTest {
 	 * true when an Order can be fulfilled, in this case, 1 desk lamps
 	 */
 	public void test_attemptOrder_true() {
-		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLusername);
+		Inventory furnitureInventory = new Inventory("jdbc:mysql://localhost/inventory", SQLusername, SQLpassword);
 		furnitureInventory.initializeConnection();
 		FurnitureOrder request = new FurnitureOrder(FurnitureCategory.getCategory("Lamp"), "Desk", 1);
 		Order order = null;
