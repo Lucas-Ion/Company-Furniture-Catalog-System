@@ -6,7 +6,7 @@ package edu.ucalgary.ensf409;
  * @since 1.0
  */
 
-//Contains information about an individual filing, including its ID, Type, Price, ManuID, and 
+//Contains information about an individual lamp, including its ID, Type, Price, ManuID, and 
 //whether it has a base and a bulb.
 public class Lamp extends Furniture {
 

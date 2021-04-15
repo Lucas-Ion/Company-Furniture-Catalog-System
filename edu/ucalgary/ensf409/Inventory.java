@@ -8,6 +8,10 @@ package edu.ucalgary.ensf409;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Inventory.java contains all database access and manipulation methods for this program.
+ */
+
 public class Inventory {
     private Connection dbConnect;
     private ResultSet results;
@@ -198,7 +202,6 @@ public class Inventory {
     }
 
     //closes and releases all connections to the database
-    
     public void close() {
         if(results!= null){
         try {
