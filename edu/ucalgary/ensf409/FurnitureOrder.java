@@ -9,6 +9,10 @@ import java.util.Arrays;
  * @since 1.0
  */
 
+/**
+ * Generates a order for a set of furniture. Will find the cheapest if it
+ * exists.
+ */
 public class FurnitureOrder {
 
 	private FurnitureCategory category;

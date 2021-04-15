@@ -8,6 +8,9 @@ package edu.ucalgary.ensf409;
 
 import java.util.ArrayList;
 
+/**
+ * Holds the furniture and properties of a furniture order.
+ */
 public class Order {
 
 	private int[] numOfComponents;
@@ -17,6 +20,13 @@ public class Order {
 	private FurnitureCategory category;
 	private String type;
 
+	/**
+	 * Creates an order with the number of furniture and the number of furniture
+	 * components they contain.
+	 * 
+	 * @param numOfComponentTypes
+	 * @param numOfFurniture
+	 */
 	public Order(int numOfComponentTypes, int numOfFurniture) {
 		numOfComponents = new int[numOfComponentTypes];
 		furnitureBought = new ArrayList<Furniture>();
@@ -24,6 +34,11 @@ public class Order {
 		this.numOfFurniture = numOfFurniture;
 	}
 
+	/**
+	 * Adds a furniture to the order and its parts
+	 * 
+	 * @param furniture
+	 */
 	public void addParts(Furniture furniture) {
 
 		totalCost += furniture.price;
@@ -35,6 +50,11 @@ public class Order {
 		}
 	}
 
+	/**
+	 * Returns if the number of parts fullfill the number of furniture.
+	 * 
+	 * @return isFullfilled
+	 */
 	public boolean isOrderFulfilled() {
 
 		for (int numOfComponent : numOfComponents) {
@@ -45,38 +65,83 @@ public class Order {
 		return true;
 	}
 
+	/**
+	 * getter
+	 * 
+	 * @return numOfComponents
+	 */
 	public int[] getNumOfComponents() {
 		return numOfComponents;
 	}
 
+	/**
+	 * getter
+	 * 
+	 * @return totalCost
+	 */
 	public int getTotalCost() {
 		return totalCost;
 	}
 
+	/**
+	 * getter
+	 * 
+	 * @return numOfFurniture
+	 */
 	public int getNumOfFurniture() {
 		return numOfFurniture;
 	}
 
+	/**
+	 * getter
+	 * 
+	 * @return furnitureBought
+	 */
 	public Furniture[] getFurnitureBought() {
 		return furnitureBought.toArray(Furniture[]::new);
 	}
 
+	/**
+	 * getter
+	 * 
+	 * @return numFurnitureBought
+	 */
 	public int getNumFurnitureBought() {
 		return furnitureBought.size();
 	}
 
+	/**
+	 * getter
+	 * 
+	 * @return category
+	 */
 	public FurnitureCategory getCategory() {
 		return category;
 	}
 
+	/**
+	 * setter
+	 * 
+	 * @param category
+	 */
 	public void setCategory(FurnitureCategory category) {
 		this.category = category;
 	}
 
+	/**
+	 * getter
+	 * 
+	 * @return type
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * setter
+	 * 
+	 * @param type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
