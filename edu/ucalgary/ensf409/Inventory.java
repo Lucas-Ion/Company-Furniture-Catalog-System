@@ -6,6 +6,7 @@
 
 package edu.ucalgary.ensf409;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,8 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * connects to the inventory sql database and extracts furniture lists, and
- * allows furniture to be removed.
+ * Inventory.java contains all database access and manipulation methods for this program.
  */
 public class Inventory {
 	private Connection dbConnect;
@@ -236,27 +236,4 @@ public class Inventory {
 			}
 		}
 	}
-
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * Inventory myJDBC = new Inventory("jdbc:mysql://localhost/inventory", "lucas",
-	 * "ensf409"); //note that username and password are for my computer's SQL
-	 * myJDBC.initializeConnection(); ArrayList<Chair> meshChairs =
-	 * myJDBC.selectChairsByType("Mesh"); for (Chair chair : meshChairs) {
-	 * System.out.println(chair.id + "     " + chair.hasLegs + "     " +
-	 * chair.price); } System.out.println(); ArrayList<Desk> adjustableChairs =
-	 * myJDBC.selectDesksByType("Adjustable"); for (Desk desk : adjustableChairs) {
-	 * System.out.println(desk.id + "     " + desk.hasLegs + "     " + desk.price);
-	 * } System.out.println(); ArrayList<Filing> smallFilings =
-	 * myJDBC.selectFilingsByType("Small"); for (Filing filing : smallFilings) {
-	 * System.out.println(filing.id + "     " + filing.hasDrawers + "     " +
-	 * filing.price); } System.out.println(); ArrayList<Lamp> deskLamps =
-	 * myJDBC.selectLampsByType("Desk"); for (Lamp lamp : deskLamps) {
-	 * System.out.println(lamp.id + "     " + lamp.hasBulb + "     " + lamp.manuId);
-	 * } myJDBC.insertChair("C0000", "Ergonomic", "Y", "Y", "N", "N", 70, "002");
-	 * myJDBC.deleteFurniture("chair", "C0000"); ArrayList<String> chairMans =
-	 * myJDBC.findManufacturers("chair"); for (String manuId : chairMans) {
-	 * System.out.println(manuId); } myJDBC.close(); }
-	 */
 }
