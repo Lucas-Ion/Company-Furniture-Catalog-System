@@ -1,4 +1,4 @@
-# ENSF409 Final Project
+# Company Furniture Cataloging System
 
 //IMPORTANT NOTE BEFORE RUNNING ANYTHING//
 
